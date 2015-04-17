@@ -1,1 +1,13 @@
-<%= @playlist.name %>
+<h1><%= @playlist.name %></h1>
+
+<% @playlist.songs.each do |song| %>
+	<div class="playlist_song">
+	  <%= song.name %>
+  </div>
+<% end %>
+
+<%= form_for Song.new do |f| %>
+	<%= f.label "Search Youtube: " %>
+	<%= f.text_field :url %>
+	<%= f.submit %>
+<% end %>

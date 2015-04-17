@@ -6,6 +6,8 @@ class PlaylistsController < ApplicationController
   def show
     @client = YouTubeIt::Client.new(:dev_key => ENV['YOUTUBE_KEY'])
     @playlist = Playlist.find(params[:id])
+
+    @song = Song.new
   end
 
   def new
