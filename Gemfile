@@ -4,6 +4,7 @@ gem 'figaro'
 gem 'omniauth-twitter'
 gem 'twitter'
 gem 'pry-rails'
+gem 'youtube_it'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
