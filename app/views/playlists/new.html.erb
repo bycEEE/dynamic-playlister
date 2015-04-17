@@ -1,0 +1,7 @@
+Create a new playlist:<br>
+<%= form_for(@playlist) do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.submit "Create a new playlist", class: "btn btn-primary" %>
+<% end %>
+  
