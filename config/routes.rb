@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
-  resources :requests
-
+  
   root to: 'static_pages#index'
-  resources :playlists
+  
+  resources :playlists do 
+  	resources :chat_messages
+  end
+
+  resources :requests
   resources :songs
 
   # Authentication

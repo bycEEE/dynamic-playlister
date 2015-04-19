@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_many :playlists, through: :requests, :foreign_key => 'listener_id'
   has_many :songs, through: :requests, :foreign_key => 'listener_id'
 
+  has_many :chat_messages
+
   def twitter
     @client = Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV['TWITTER_KEY']

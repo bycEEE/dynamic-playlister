@@ -6,6 +6,12 @@ gem 'twitter'
 gem 'pry-rails'
 gem 'youtube_it'
 
+gem 'faye-websocket'
+gem 'rest-client'
+gem 'nifty-generators'
+gem 'faye'
+gem 'thin'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use SCSS for stylesheets
@@ -56,7 +62,7 @@ group :test, :development do
   gem 'sqlite3'
   gem 'pry'
   gem 'guard-rspec', require: false
-  gem 'thin'
+  # gem 'thin'
 end
 
 group :production do

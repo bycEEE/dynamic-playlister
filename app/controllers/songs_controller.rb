@@ -10,8 +10,4 @@ class SongsController < ApplicationController
   	redirect_to playlist
   end
 
-  def new
-  	require "pry"
-  	binding.pry
-  end
 end

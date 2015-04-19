@@ -15,3 +15,12 @@
 //= require bootstrap
 //= require_tree ../../../vendor/assets/javascripts/.
 //= require_tree .
+$(function() {
+	// debugger
+	var faye = new Faye.Client('http://localhost:9292/faye')
+	faye.subscribe(location.href + "/chat_messages", function(data) {
+		// debugger
+		$("#message_box").append("<p>" + data.content + "</p>")
+		// eval(data)
+	});
+});
