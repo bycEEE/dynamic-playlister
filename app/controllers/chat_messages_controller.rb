@@ -3,8 +3,7 @@ class ChatMessagesController < ApplicationController
 	def create
 		@chat_message = ChatMessage.create(chat_message_params)
 		# Temp.broadcast("playlists/#{@chat_message.playlist.id}/chat_messages", @chat_message)
-		Temp.broadcast("playlists/#{@chat_message.playlist.id}/chat_messages", @chat_message)
-		binding.pry
+		Temp.broadcast("/chat_messages", @chat_message)
 		render :nothing => true
 	end
 

@@ -6,7 +6,9 @@
 		  <%= song.name %>
 	  </div>
 	<% end %>
+	<%= render 'youtube_search' %>
 	<%= render 'new_song_by_url' %>
+
 </div>
 
 <div id="chat" class="container col-xs-6 col-md-4">
@@ -27,13 +29,13 @@
 
 <!-- JS -->
 <script>
-	$(function() {
-		$(":submit").click(function(event) {
-			event.preventDefault();
-			// $.post("/playlist//chat_messages", $("form").serialize(), function(data) {	
-			$.post(location.href + "/chat_messages", $("form").serialize(), function(data) {	
-			})
-			$("#new_chat_message")[0].reset();
-		})
-	});
+	// $(function() {
+	// 	$(":submit").click(function(event) {
+	// 		event.preventDefault();
+	// 		// $.post("/playlist//chat_messages", $("form").serialize(), function(data) {	
+	// 		$.post(location.href + "/chat_messages", $("form").serialize(), function(data) {	
+	// 		})
+	// 		$("#new_chat_message")[0].reset();
+	// 	})
+	// });
 </script>

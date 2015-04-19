@@ -1,0 +1,9 @@
+<% @videos.each do |video| %>
+	<div>
+		<%= video.title %> | 
+	  <%= video.player_url %>
+	  <% #form_for Song.new do |f| %>
+		 	<% #f.submit "Add Song", song_path %>
+	 	<% #end %>
+	</div>
+<% end %>
