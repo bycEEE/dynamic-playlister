@@ -1,3 +1,45 @@
+<div id="player"></div>
+<script src="http://www.youtube.com/iframe_api"></script>
+
+<!-- Player won't play starting with empty array
+Player won't play after song is added when playlist is finished -->
+
+<script>
+    /**
+     * Put your video IDs in this array
+     */
+    var videoIDs = [
+        'i_kF4zLNKio',
+        'vJwKKKd2ZYE'
+    ];
+
+    var player, currentVideoId = 0;
+
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            height: '350',
+            width: '425',
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    }
+
+    function onPlayerReady(event) {
+        event.target.loadVideoById(videoIDs[currentVideoId]);
+    }
+
+    function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.ENDED) {
+            currentVideoId++;
+            if (currentVideoId < videoIDs.length) {
+                player.loadVideoById(videoIDs[currentVideoId]);
+            }
+        }
+    }
+</script>
+
 
 <div id="playlist" class="container col-xs-9 col-md-6 col-xs-offset-2 col-md-offset-2">
 	<h1><%= @playlist.name %></h1>

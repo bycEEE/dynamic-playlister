@@ -3,5 +3,5 @@
 	<%= f.hidden_field :playlist_id, :value => params["id"] %>
 	<%= f.label "Enter Youtube Url: " %>
 	<%= f.text_field :url %>
-	<%= f.submit %>
+	<%= f.submit :id => "add-song" %>
 <% end %>
