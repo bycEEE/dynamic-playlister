@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :requests
   resources :songs
 
-  get 'youtube_search', to: 'playlists#youtube_search'
+  get '/playlists/:id/youtube_search', to: 'search#youtube_search'
 
   # Authentication
   match '/auth/:provider/callback', to: 'sessions#create', via: 'get'

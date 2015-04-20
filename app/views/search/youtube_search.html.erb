@@ -1,0 +1,13 @@
+<% @videos.each do |video| %>
+	<div>
+		<%= video.title %> | 
+	  <%= video.player_url %>
+
+	  <%= form_for Song.new do |f| %>
+      <%= f.hidden_field :url, :value => video.player_url %>
+      <%= f.hidden_field :user_id, :value => current_user.id %>
+      <%= f.hidden_field :playlist_id, :value => params["id"] %>
+		 	<%= f.submit "Add Song" %>
+	 	<% end %>
+	</div>
+<% end %>
