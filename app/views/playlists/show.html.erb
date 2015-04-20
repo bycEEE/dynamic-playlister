@@ -55,11 +55,11 @@ Player won't play after song is added when playlist is finished -->
 
 <div id="chat" class="container col-xs-6 col-md-4">
 	<h1>Chat:</h1>
-	<% @playlist.chat_messages.each do |message| %>
-		<div id="message_box">
-		  <%= message.content %>
-	  </div>
-	<% end %>
+  <ul id="message_box">
+  	<% @playlist.chat_messages.each do |message| %>
+  		  <li><%= message.content %></li>
+  	<% end %>
+  </ul>
 
 	<%= form_for [@playlist, ChatMessage.new] do |f| %>
 		<%= f.hidden_field :playlist_id, value: @playlist.id %>
@@ -71,13 +71,13 @@ Player won't play after song is added when playlist is finished -->
 
 <!-- JS -->
 <script>
-	// $(function() {
-	// 	$(":submit").click(function(event) {
-	// 		event.preventDefault();
-	// 		// $.post("/playlist//chat_messages", $("form").serialize(), function(data) {	
-	// 		$.post(location.href + "/chat_messages", $("form").serialize(), function(data) {	
-	// 		})
-	// 		$("#new_chat_message")[0].reset();
-	// 	})
-	// });
+	$(function() {
+		$(":submit").click(function(event) {
+			event.preventDefault();
+			// $.post("/playlist//chat_messages", $("form").serialize(), function(data) {	
+			$.post(location.href + "/chat_messages", $("form").serialize(), function(data) {	
+			})
+			$("#new_chat_message")[0].reset();
+		})
+	});
 </script>
