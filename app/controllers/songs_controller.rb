@@ -9,7 +9,7 @@ class SongsController < ApplicationController
         :listener_id => current_user.id, 
         :playlist_id => playlist_id })
     playlist = Playlist.find(playlist_id)
-
+    
     if params[:playlist_id]
       # broadcast() - broadcast logic
       render :nothing

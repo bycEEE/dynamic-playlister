@@ -1,5 +1,5 @@
 class ChatMessagesController < ApplicationController
-
+	layout false
 	def create
 		@chat_message = ChatMessage.create(chat_message_params)
 		# Temp.broadcast("/chat_messages/#{@chat_message.playlist.id}", @chat_message)

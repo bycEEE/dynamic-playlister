@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :playlists do 
     resources :chat_messages
   end
+
   resources :playlists do
     resources :songs
   end

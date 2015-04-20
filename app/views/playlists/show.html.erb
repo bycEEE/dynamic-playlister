@@ -58,17 +58,22 @@ Player won't play after song is added when playlist is finished -->
 
 <div id="chat" class="container col-xs-6 col-md-4">
 	<h1>Chat:</h1>
+
   <ul id="message_box">
-  	<% @playlist.chat_messages.each do |message| %>
-  		  <li><%= message.content %></li>
-  	<% end %>
+    <% @playlist.chat_messages.each do |message| %>
+      <% if message.user_id == current_user.id %>
+        <li class="current_user_comment"><%= message.content %></li>
+      <% else %>
+        <li class="other_user_comment"><%= message.content %></li>
+      <% end %>
+    <% end %>
   </ul>
 
 	<%= form_for [@playlist, ChatMessage.new] do |f| %>
 		<%= f.hidden_field :playlist_id, value: @playlist.id %>
 		<%= f.hidden_field :user_id, value: current_user.id %>
 	  <%= f.text_field :content %>
-	  <%= f.submit "Send" %>
+	  <%= f.submit "Send", :id => 'chat_send'%>
 	<% end %>
 </div>
 
@@ -76,11 +81,16 @@ Player won't play after song is added when playlist is finished -->
 <script>
 	$(function() {
 		$(":submit").click(function(event) {
-			event.preventDefault();
-			// $.post("/playlist//chat_messages", $("form").serialize(), function(data) {	
-			$.post(location.href + "/chat_messages", $("form").serialize(), function(data) {	
-			})
-			$("#new_chat_message")[0].reset();
+      debugger
+      if ($(this).attr('id') == "add-song") {
+        
+      } else if ($(this).attr('id') == "chat_send") {
+  			event.preventDefault();
+  			// $.post("/playlist//chat_messages", $("form").serialize(), function(data) {	
+  			$.post(location.href + "/chat_messages", $("form").serialize(), function(data) {	
+  			})
+  			$("#new_chat_message")[0].reset();
+      }
 		})
 	});
 </script>
