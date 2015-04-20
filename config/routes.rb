@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   root to: 'static_pages#index'
   
   resources :playlists do 
-  	resources :chat_messages
+    resources :chat_messages
   end
-
+  resources :playlists do
+    resources :songs
+  end
   resources :requests
   resources :songs
 

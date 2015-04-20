@@ -22,7 +22,6 @@ $(function() {
   var idRegex = /http:\/\/localhost:3000\/playlists\/(\d+)/
   var match = idRegex.exec(location.href)
 	faye.subscribe("/chat_messages/" + match[1], function(data) {
-    debugger
 		$("#message_box").append("<li>" + data.content + "</li>")
 		// eval(data)
 	});
