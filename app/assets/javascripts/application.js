@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree ../../../vendor/assets/javascripts/.
+//= require playlists
 //= require_tree .
 $(function() {
 	// debugger

@@ -11,5 +11,4 @@ class SongsController < ApplicationController
     binding.pry
   	redirect_to playlist
   end
-
 end
