@@ -6,9 +6,9 @@ $( document ).ready(function() {
     var newSong = $( "#song_url" ).val();
     newSong = newSong.replace("https://youtu.be/", "");
     videoIDs.push(newSong);
-    $.post("/playlists/1/songs", {"song" : {"url" : $("#song_url").val()}}, function(data) {
-      // Implement Rails flash
-    })
+    // $.post("/playlists/1/songs", {"song" : {"url" : $("#song_url").val()}}, function(data) {
+    //   // Implement Rails flash
+    // })
   });
   $( "#skip-song" ).on( "click", function(event) {
     event.preventDefault();

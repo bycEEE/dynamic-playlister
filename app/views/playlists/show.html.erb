@@ -3,13 +3,12 @@
 
 <!-- Player won't play starting with empty array
 Player won't play after song is added when playlist is finished -->
-
 <script>
     /**
      * Put your video IDs in this array
      */
     var videoIDs = [
-        'i_kF4zLNKio'
+        'i_kF4zLNKio', <%= @songs.html_safe %>
     ];
 
     var player, currentVideoId = 0;
@@ -45,12 +44,12 @@ Player won't play after song is added when playlist is finished -->
   
 
 <div id="playlist" class="container col-xs-9 col-md-6 col-xs-offset-2 col-md-offset-2">
-	<h1><%= @playlist.name %></h1>
-	<% @playlist.songs.each do |song| %>
-		<div class="playlist_song">
-			<%= link_to "#{song.name}", song  %>
-		</div>
-	<% end %>
+  <h1><%= @playlist.name %></h1>
+  <% @playlist.songs.each do |song| %>
+    <div class="playlist_song">
+      <%= link_to "#{song.name}", song  %>
+  </div>
+  <% end %>
   <h2>What we want:</h2>
   <%= render 'add_song_form' %>
 </div>

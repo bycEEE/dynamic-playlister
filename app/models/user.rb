@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
-  has_many :playlists, :foreign_key => 'host_id'
+  has_many :host_playlists, :class_name => "Playlist", :foreign_key => 'host_id'
   has_many :requests, :foreign_key => 'listener_id'
-  has_many :playlists, through: :requests, :foreign_key => 'listener_id'
+  has_many :listener_playlists, -> { uniq }, through: :requests, :source => :playlist
   has_many :songs, through: :requests, :foreign_key => 'listener_id'
 
   has_many :chat_messages
