@@ -63,7 +63,7 @@ Player won't play after song is added when playlist is finished -->
     <% @playlist.chat_messages.each do |message| %>
       <% if message.user_id == current_user.id %>
         <tr class="current_user_comment">
-          <td><%= message.content %></td>
+          <td><%= message.user.name %>: <%= message.content %></td>
         </tr>
       <% else %>
         <tr class="other_user_comment">
@@ -85,7 +85,7 @@ Player won't play after song is added when playlist is finished -->
 <script>
 	$(function() {
 		$(":submit").click(function(event) {
-      debugger
+      // debugger
       if ($(this).attr('id') == "add-song") {
         
       } else if ($(this).attr('id') == "chat_send") {
