@@ -2,6 +2,6 @@
   <%= f.hidden_field :user_id, :value => current_user.id %>
   <%= f.hidden_field :playlist_id, :value => params["id"] %>
   <%= f.label "Enter Youtube URL or Search Term: " %>
-  <%= f.text_field :search_term_or_url %>
+  <%= f.text_field :url %>
   <%= f.submit :id => "add-song" %>
 <% end %>

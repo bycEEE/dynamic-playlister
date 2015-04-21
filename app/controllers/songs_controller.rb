@@ -1,6 +1,13 @@
 class SongsController < ApplicationController
 
   def create
+    if params[:song][:url] =~ /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/watch\?.+&v=))([\w-]{11})(?:.+)?$/
+      song_hash = Song.get_song_hash_from_url(params[:song][:url])
+      Song.find_or_create_by(song_hash)
+    else
+      redirect_to root_path
+    end
+
     playlist_id = params[:song][:playlist_id] || params[:playlist_id]
     song_hash = Song.get_song_hash_from_url(params[:song][:url])
     song = Song.find_or_create_by(song_hash)
