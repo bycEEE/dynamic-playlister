@@ -1,0 +1,10 @@
+<h1><%= link_to "New Playlist", new_playlist_path %></h1>
+<h1>Playlists you host:</h1>
+<% current_user.host_playlists.each do |playlist| %>
+  <%= link_to "#{playlist.name}", playlist_path(playlist) %><br>
+<% end %>
+
+<h1>Playlists you follow:</h1>
+<% current_user.listener_playlists.each do |playlist| %>
+  <%= link_to "#{playlist.name}", playlist_path(playlist) %><br>
+<% end %>

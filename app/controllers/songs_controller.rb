@@ -8,13 +8,14 @@ class SongsController < ApplicationController
       redirect_to root_path
     end
 
-    playlist_id = params[:song][:playlist_id] || params[:playlist_id]
+    playlist_id = params[:song][:playlist_id].to_i || params[:playlist_id].to_i
     song_hash = Song.get_song_hash_from_url(params[:song][:url])
     song = Song.find_or_create_by(song_hash)
     request = Request.find_or_create_by(
-    {  :song_id => song.id, 
+        :song_id => song.id, 
         :listener_id => current_user.id, 
-        :playlist_id => playlist_id })
+        :playlist_id => playlist_id
+      )
     playlist = Playlist.find(playlist_id)
     
     if params[:playlist_id]

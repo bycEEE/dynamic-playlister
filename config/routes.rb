@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :requests
   resources :songs
 
+  resources :users #Limit resources
+
   get '/playlists/:id/youtube_search', to: 'search#youtube_search'
 
   # Authentication

@@ -1,5 +1,6 @@
+<%= link_to "Home", root_path %> | 
 <% if current_user %>
-  Welcome <%= current_user.name %>! | <%= link_to "Log out", logout_path  %>
+  <%= link_to "Welcome #{current_user.name}!", current_user %> | <%= link_to "Log out", logout_path  %>
 <% else %>
   Hello non-registered person | <%= link_to "Log in", "/auth/twitter"  %>
 <% end %>
