@@ -48,12 +48,11 @@ Player won't play after song is added when playlist is finished -->
 	<h1><%= @playlist.name %></h1>
 	<% @playlist.songs.each do |song| %>
 		<div class="playlist_song">
-		  <%= song.name %>
-	  </div>
+			<%= link_to "#{song.name}", song  %>
+		</div>
 	<% end %>
 	<%= render 'youtube_search' %>
 	<%= render 'new_song_by_url' %>
-
 </div>
 
 <div id="chat" class="container col-xs-6 col-md-4">
