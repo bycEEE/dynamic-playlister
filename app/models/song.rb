@@ -3,15 +3,13 @@ class Song < ActiveRecord::Base
   has_many :users, through: :requests
   has_many :playlists, through: :requests
 
-  def self.get_song_hash_from_url(url)
+  def self.get_song_hash_from_url(videoid)
     client = YouTubeIt::Client.new(:dev_key => ENV["YOUTUBE_KEY"])
-    video = client.video_by(url)
-    uid_match = video.media_content.first.url.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/i)
-    uid = uid_match[2] if uid_match && uid_match[2]
+    video = client.video_by(videoid)
     song_hash = {
       :name => video.title,
       :url => video.media_content.first.url,
-      :uid => uid
+      :uid => videoid
       }
     song_hash
   end

@@ -53,9 +53,6 @@ Player won't play after song is added when playlist is finished -->
 	<% end %>
   <h2>What we want:</h2>
   <%= render 'add_song_form' %>
-  <h2>What we are consolidating:</h2>
-	<%= render 'youtube_search' %>
-	<%= render 'new_song_by_url' %>
 </div>
 
 <div id="chat" class="container col-xs-6 col-md-4">
@@ -89,15 +86,20 @@ Player won't play after song is added when playlist is finished -->
 	$(function() {
 		$(":submit").click(function(event) {
       // debugger
-      if ($(this).attr('id') == "add-song") {
-        
+      if ($(this).attr('id') == "intelligent-add-song") {
+        event.preventDefault();
+        $.post(location.href + "/songs", $("form").serialize(), function(data) {
+          videoIDs.push(data.uid)  
+        })
+
       } else if ($(this).attr('id') == "chat_send") {
-  			event.preventDefault();
+        event.preventDefault();
   			// $.post("/playlist//chat_messages", $("form").serialize(), function(data) {	
   			$.post(location.href + "/chat_messages", $("form").serialize(), function(data) {	
   			})
   			$("#new_chat_message")[0].reset();
       }
+
 		})
 	});
 </script>

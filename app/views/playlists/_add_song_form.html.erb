@@ -1,7 +1,7 @@
-<%= form_for Song.new do |f| %>
-  <%= f.hidden_field :user_id, :value => current_user.id %>
-  <%= f.hidden_field :playlist_id, :value => params["id"] %>
-  <%= f.label "Enter Youtube URL or Search Term: " %>
-  <%= f.text_field :url %>
-  <%= f.submit :id => "add-song" %>
+<%= form_tag(songs_path, method: "post") do %>
+  <%= hidden_field_tag :user_id, current_user.id %>
+  <%= hidden_field_tag :playlist_id, params["id"] %>
+  <%= label_tag "Enter Youtube URL or Search Term: " %>
+  <%= text_field_tag :search_term_or_url %>
+  <%= submit_tag "Add Song", :id => "intelligent-add-song"%>
 <% end %>
