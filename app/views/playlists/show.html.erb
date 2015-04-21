@@ -59,15 +59,19 @@ Player won't play after song is added when playlist is finished -->
 <div id="chat" class="container col-xs-6 col-md-4">
 	<h1>Chat:</h1>
 
-  <ul id="message_box">
+  <table id="message_box" class="table">
     <% @playlist.chat_messages.each do |message| %>
       <% if message.user_id == current_user.id %>
-        <li class="current_user_comment"><%= message.content %></li>
+        <tr class="current_user_comment">
+          <td><%= message.content %></td>
+        </tr>
       <% else %>
-        <li class="other_user_comment"><%= message.content %></li>
+        <tr class="other_user_comment">
+          <td><%= message.content %></td>
+        </tr>
       <% end %>
     <% end %>
-  </ul>
+  </table>
 
 	<%= form_for [@playlist, ChatMessage.new] do |f| %>
 		<%= f.hidden_field :playlist_id, value: @playlist.id %>
