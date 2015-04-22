@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20150422150104) do
     t.integer "song_id"
     t.integer "listener_id"
     t.integer "playlist_id"
-    t.integer "votes",       default: 0
+    t.integer "votes",       default: 1
   end
 
   create_table "songs", force: :cascade do |t|
