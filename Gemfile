@@ -5,6 +5,7 @@ gem 'omniauth-twitter'
 gem 'twitter'
 gem 'pry-rails'
 gem 'youtube_it'
+gem 'jquery-ui-rails'
 
 gem 'faye-websocket'
 gem 'rest-client'

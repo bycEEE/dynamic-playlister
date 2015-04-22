@@ -10,8 +10,12 @@ class SongsController < ApplicationController
           :listener_id => current_user.id,
           :playlist_id => playlist.id })
     else
-      # redirect_to playlist
-      redirect_to root_path
+      song_hash = Song.get_song_hash_from_url(params[:search_term_or_url])
+      song = Song.find_or_create_by(song_hash)
+      request = Request.find_or_create_by(
+      {   :song_id => song.id, 
+          :listener_id => current_user.id,
+          :playlist_id => playlist.id })
     end
     render json: song
   end

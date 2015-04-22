@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419192743) do
+ActiveRecord::Schema.define(version: 20150422032539) do
 
   create_table "chat_messages", force: :cascade do |t|
     t.string   "content"
@@ -32,6 +32,13 @@ ActiveRecord::Schema.define(version: 20150419192743) do
     t.integer "song_id"
     t.integer "listener_id"
     t.integer "playlist_id"
+  end
+
+  create_table "search_suggestions", force: :cascade do |t|
+    t.string   "term"
+    t.integer  "popularity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "songs", force: :cascade do |t|

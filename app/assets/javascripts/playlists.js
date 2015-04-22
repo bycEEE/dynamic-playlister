@@ -1,5 +1,18 @@
-$( document ).ready(function() {
-  console.log("playlist.js loaded");
+$(function() {
+   $("#search_term_or_url").autocomplete({
+    minLength: 3,
+    source: "/search_suggestions",
+    // select: function (event, ui) {
+    //   $('#search_term_or_url').val(ui.item.title);
+    //   $('#song_uid').val(ui.item.id);
+    //   return false;
+    // }
+      select: function(event, ui) {
+      $('#search_term_or_url').val(ui.item.value);
+    }
+   });
+
+
   $( "#add-song" ).on( "click", function(event) {
     event.preventDefault();
     // event.stopPropagation();
@@ -22,3 +35,19 @@ $( document ).ready(function() {
     }
   });
 });
+
+// to write own autocomplete
+// event listener on that input
+// type = keydown or keyup
+// send a get request to youtube api
+// when that get request returns, function (data) {
+//   $("some element").append("<div> jsondata </div>")
+
+// }
+// ul -> li
+
+// add event listener the ul
+// $("ul").click(function() {
+//   add the clicked element into the input box, set the data id of that element to be the videoid
+//   run whatever 
+// })

@@ -11,22 +11,24 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree ../../../vendor/assets/javascripts/.
 //= require playlists
 //= require_tree .
+
 $(function() {
-	// debugger
-	var faye = new Faye.Client('http://localhost:9292/faye');
+  // debugger
+  var faye = new Faye.Client('http://localhost:9292/faye');
   var idRegex = /http:\/\/localhost:3000\/playlists\/(\d+)/
   var match = idRegex.exec(location.href)
-	faye.subscribe("/chat_messages/" + match[1], function(data) {
-		// $("#message_box").append("<li>" + data.content + "</li>")
-    // debugger
-    $("#message_box").append("<tr class=\"current_user_comment\"><td>" 
-                                  + data.user + ": " + data.content + 
-                              "</td></tr>")
-		// eval(data)
-	});
+  faye.subscribe("/chat_messages/" + match[1], function(data) {
+  // $("#message_box").append("<li>" + data.content + "</li>")
+  // debugger
+  $("#message_box").append("<tr class=\"current_user_comment\"><td>" 
+                                                  + data.user + ": " + data.content + 
+                                                "</td></tr>")
+  // eval(data)
+  });
 });

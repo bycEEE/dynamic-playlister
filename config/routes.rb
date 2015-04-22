@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  resources :search_suggestions
+  # get '/search_suggestions', to: 'search_suggestions#index'
+
   root to: 'static_pages#index'
   
   resources :playlists do 
