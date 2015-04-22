@@ -10,7 +10,6 @@ class SongsController < ApplicationController
           :listener_id => current_user.id,
           :playlist_id => playlist.id })
     else
-      # redirect_to playlist
       redirect_to root_path
     end
     render json: song

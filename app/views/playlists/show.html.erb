@@ -4,7 +4,7 @@
 <!-- Player won't play starting with empty array
 Player won't play after song is added when playlist is finished -->
 <script>
-    /**
+    /*
      * Put your video IDs in this array
      */
     var videoIDs = [
@@ -45,15 +45,27 @@ Player won't play after song is added when playlist is finished -->
 
 <div id="playlist" class="container col-xs-9 col-md-6 col-xs-offset-2 col-md-offset-2">
   <h1><%= @playlist.name %></h1>
-    <% @playlist.songs.each do |song| %>
-      <div class="playlist_song">
-        <%= link_to "#{song.name}", song  %>
-    </div>
-  <% end %>
+  <table if="playlist-table">
+    <% @playlist.requests.each do |request| %>
+    <tr>
+      <div>
+        <div class="voting" id="voting-<%= request.id%>">
+          <h6 id="vote-count-<%= request.id%>"><%= request.votes %></h6>
+          <a class="upvote" id="upvote-<%= request.id%>"> upvote </a>
+          <a class="downvote" id="downvote-<%= request.id%>">downvote</a>
+        </div>
+        <%= link_to "#{request.song.name}", request.song  %>
+      </div>
+    </tr>
+    <% end %>
+  </table>
+
+
   <h2>What we want:</h2>
   <%= render 'add_song_form' %>
 </div>
 
+<!-- CHAT FEATURE: -->
 <%= render 'chat_box_and_form' %>
 
 <!-- JS -->
@@ -75,6 +87,33 @@ Player won't play after song is added when playlist is finished -->
   			$("#new_chat_message")[0].reset();
       }
 
-		})
+		});
+
+    $(".upvote").click(function(event) {
+      var requestId = $(this).attr("id")
+      requestId = requestId.replace("upvote-", "")
+      $.post("/requests/upvote", {"request_id": requestId}, function(data) {  
+        });
+    });
+
+    $(".downvote").click(function(event) {
+      var requestId = $(this).attr("id")
+      requestId = requestId.replace("downvote-", "")
+      $.post("/requests/downvote", {"request_id": requestId}, function(data) {  
+        });
+    });
 	});
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+

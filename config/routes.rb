@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   resources :requests
   resources :songs
 
+  post '/requests/upvote', to: 'requests#upvote'
+  post '/requests/downvote', to: 'requests#downvote'
+
   resources :users #Limit resources
 
   get '/playlists/:id/youtube_search', to: 'search#youtube_search'
