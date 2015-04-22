@@ -24,7 +24,7 @@ $(function() {
 	faye.subscribe("/chat_messages/" + match[1], function(data) {
 		// $("#message_box").append("<li>" + data.content + "</li>")
     // debugger
-    $("#message_box").append("<tr class=\"current_user_comment\"><td>" 
+    $("#message-table").append("<tr class=\"current_user_comment\"><td>" 
                                   + data.user + ": " + data.content + 
                               "</td></tr>")
 		// eval(data)
