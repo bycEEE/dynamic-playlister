@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   
-  resources :search_suggestions
-  # get '/search_suggestions', to: 'search_suggestions#index'
+  get '/search_suggestions', to: 'search#autocomplete'
 
   root to: 'static_pages#index'
   
