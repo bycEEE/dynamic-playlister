@@ -1,0 +1,25 @@
+<div id="chat" class="container col-xs-6 col-md-4">
+  <h1>Chat:</h1>
+  <div id="message-div">
+    <table id="message-table" class="table">
+      <% @playlist.chat_messages.each do |message| %>
+        <% if message.user_id == current_user.id %>
+          <tr class="current_user_comment">
+            <td><%= message.user.name %>: <%= message.content %></td>
+          </tr>
+        <% else %>
+          <tr class="other_user_comment">
+            <td><%= message.content %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  </div>
+
+  <%= form_for [@playlist, ChatMessage.new] do |f| %>
+    <%= f.hidden_field :playlist_id, value: @playlist.id %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.text_field :content %>
+    <%= f.submit "Send", :id => 'chat_send'%>
+  <% end %>
+</div>

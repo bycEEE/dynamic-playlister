@@ -20,15 +20,33 @@
 
 $(function() {
   // debugger
+
+  // add chat message
   var faye = new Faye.Client('http://localhost:9292/faye');
-  var idRegex = /http:\/\/localhost:3000\/playlists\/(\d+)/
-  var match = idRegex.exec(location.href)
-  faye.subscribe("/chat_messages/" + match[1], function(data) {
-  // $("#message_box").append("<li>" + data.content + "</li>")
-  // debugger
-  $("#message_box").append("<tr class=\"current_user_comment\"><td>" 
-                                                  + data.user + ": " + data.content + 
-                                                "</td></tr>")
-  // eval(data)
+  var idRegex = /http:\/\/localhost:3000\/playlists\/(\d+)/;
+  var match = idRegex.exec(location.href);
+    faye.subscribe("/chat_messages/" + match[1], function(data) {
+    // $("#message_box").append("<li>" + data.content + "</li>")
+    // debugger
+    $("#message-table").append("<tr class=\"current_user_comment\"><td>" 
+                                  + data.user + ": " + data.content + 
+                              "</td></tr>");
+        // eval(data)
+    });
+
+  // add songs
+  faye.subscribe("/playlists/" + match[1], function(data) {
+    // $("#message_box").append("<li>" + data.content + "</li>")
+    $("#playlist-table").append("<tr class=\"current_user_comment\"><td>" +
+                              "</td></tr>")
+    // eval(data)
+  });
+
+  // change votes
+  faye.subscribe("/playlists/" + match[1] +"/votes", function(data) {
+    // $("#message_box").append("<li>" + data.content + "</li>")
+    $("#vote-count-"+data.request_id).text(data.votes); 
+    
+    // eval(data)
   });
 });

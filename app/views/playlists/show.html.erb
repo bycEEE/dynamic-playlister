@@ -2,7 +2,7 @@
 <script src="http://www.youtube.com/iframe_api"></script>
 
 <script>
-    /**
+    /*
      * Put your video IDs in this array
      */
     var videoIDs = [
@@ -43,40 +43,28 @@
 
 <div id="playlist" class="container col-xs-9 col-md-6 col-xs-offset-2 col-md-offset-2">
   <h1><%= @playlist.name %></h1>
-  <% @playlist.songs.each do |song| %>
-    <div class="playlist_song">
-      <%= link_to "#{song.name}", song  %>
-  </div>
-  <% end %>
+  <table if="playlist-table">
+    <% @playlist.requests.each do |request| %>
+    <tr>
+      <div>
+        <div class="voting" id="voting-<%= request.id%>">
+          <h6 id="vote-count-<%= request.id%>"><%= request.votes %></h6>
+          <a class="upvote" id="upvote-<%= request.id%>"> upvote </a>
+          <a class="downvote" id="downvote-<%= request.id%>">downvote</a>
+        </div>
+        <%= link_to "#{request.song.name}", request.song  %>
+      </div>
+    </tr>
+    <% end %>
+  </table>
+
+
   <h2>What we want:</h2>
   <%= render 'add_song_form' %>
 </div>
 
-<div id="chat" class="container col-xs-6 col-md-4">
-	<h1>Chat:</h1>
-  <div id="message_box">
-    <table class="table">
-      <% @playlist.chat_messages.each do |message| %>
-        <% if message.user_id == current_user.id %>
-          <tr class="current_user_comment">
-            <td><%= message.user.name %>: <%= message.content %></td>
-          </tr>
-        <% else %>
-          <tr class="other_user_comment">
-            <td><%= message.content %></td>
-          </tr>
-        <% end %>
-      <% end %>
-    </table>
-  </div>
-
-	<%= form_for [@playlist, ChatMessage.new] do |f| %>
-		<%= f.hidden_field :playlist_id, value: @playlist.id %>
-		<%= f.hidden_field :user_id, value: current_user.id %>
-	  <%= f.text_field :content %>
-	  <%= f.submit "Send", :id => 'chat_send'%>
-	<% end %>
-</div>
+<!-- CHAT FEATURE: -->
+<%= render 'chat_box_and_form' %>
 
 <!-- JS -->
 <script>
@@ -97,6 +85,20 @@
   			$("#new_chat_message")[0].reset();
       }
 
-		})
+		});
+
+    $(".upvote").click(function(event) {
+      var requestId = $(this).attr("id")
+      requestId = requestId.replace("upvote-", "")
+      $.post("/requests/upvote", {"request_id": requestId}, function(data) {  
+        });
+    });
+
+    $(".downvote").click(function(event) {
+      var requestId = $(this).attr("id")
+      requestId = requestId.replace("downvote-", "")
+      $.post("/requests/downvote", {"request_id": requestId}, function(data) {  
+        });
+    });
 	});
 </script>
