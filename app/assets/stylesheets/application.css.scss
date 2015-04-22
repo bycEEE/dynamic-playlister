@@ -13,6 +13,7 @@
  *= require_tree ../../../vendor/assets/stylesheets/.
  *= require_tree .
  *= require_self
+ *= require jquery-ui
  //= depend_on_asset "bootstrap/glyphicons-halflings-regular.eot"
  //= depend_on_asset "bootstrap/glyphicons-halflings-regular.woff"
  //= depend_on_asset "bootstrap/glyphicons-halflings-regular.ttf"

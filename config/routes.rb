@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get '/search_suggestions', to: 'search#autocomplete'
+
   root to: 'static_pages#index'
   
   resources :playlists do 
