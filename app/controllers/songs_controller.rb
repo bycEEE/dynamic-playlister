@@ -17,7 +17,8 @@ class SongsController < ApplicationController
           :listener_id => current_user.id,
           :playlist_id => playlist.id })
     end
-    render json: song
+    render nothing: true
+    # render json: song
   end
 
   def show
