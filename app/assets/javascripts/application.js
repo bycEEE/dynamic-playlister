@@ -68,12 +68,4 @@ $(function() {
     var songToDelete = videoIDs.indexOf(data.request_song_uid);
     videoIDs.splice(songToDelete, 1);
   });
-
-    // WHAT IS THIS? MAKING SURE WE DON'T NEED IT AND THAT IT IS INDEED COPY PASTA
-  // add song
-  // faye.subscribe("/playlists/" + match[1] +"/add", function(data) {
-    // $('#request_'+ data.request_id).remove();
-    // var songToDelete = videoIDs.indexOf(data.request_song_uid);
-    // videoIDs.splice(songToDelete, 1);
-  // });
 });
