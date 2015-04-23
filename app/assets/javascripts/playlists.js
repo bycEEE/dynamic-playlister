@@ -39,14 +39,14 @@ $(function() {
   $(".upvote").click(function(event) {
     var requestId = $(this).attr("id")
     requestId = requestId.replace("upvote-", "")
-    $.post("/votes/upvote", {"request_id": requestId}, function(data) {  
+    $.post("/requests/upvote", {"request_id": requestId}, function(data) {  
       });
   });
 
   $(".downvote").click(function(event) {
     var requestId = $(this).attr("id")
     requestId = requestId.replace("downvote-", "")
-    $.post("/votes/downvote", {"request_id": requestId}, function(data) {  
+    $.post("/requests/downvote", {"request_id": requestId}, function(data) {  
       });
   });
 

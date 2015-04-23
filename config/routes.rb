@@ -1,10 +1,23 @@
 Rails.application.routes.draw do
   
-  resources :votes
+  root to: 'static_pages#index'
 
   get '/search_suggestions', to: 'search#autocomplete'
 
-  root to: 'static_pages#index'
+  post '/votes/upvote', to: 'votes#upvote'
+  post '/votes/downvote', to: 'votes#downvote'
+  post '/requests/destroy', to: 'requests#destroy'
+  get '/playlists/:id/youtube_search', to: 'search#youtube_search'
+
+  # Authentication
+  match '/auth/:provider/callback', to: 'sessions#create', via: 'get'
+  match '/auth/failure', to: redirect('/'), via: 'get'
+  get 'logout', to: 'sessions#destroy'
+
+  resources :votes
+  resources :requests
+  resources :songs
+  resources :users
   
   resources :playlists do 
     resources :chat_messages
@@ -13,19 +26,5 @@ Rails.application.routes.draw do
   resources :playlists do
     resources :songs
   end
-  resources :requests
-  resources :songs
 
-  post '/votes/upvote', to: 'votes#upvote'
-  post '/votes/downvote', to: 'votes#downvote'
-  post '/requests/destroy', to: 'requests#destroy'
-
-  resources :users #Limit resources
-
-  get '/playlists/:id/youtube_search', to: 'search#youtube_search'
-
-  # Authentication
-  match '/auth/:provider/callback', to: 'sessions#create', via: 'get'
-  match '/auth/failure', to: redirect('/'), via: 'get'
-  get 'logout', to: 'sessions#destroy'
 end
