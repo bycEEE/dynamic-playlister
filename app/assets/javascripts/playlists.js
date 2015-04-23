@@ -12,17 +12,18 @@ $(function() {
     }
    });
 
+  // $( "#add-song" ).on( "click", function(event) {
+  //   event.preventDefault();
+  //   // event.stopPropagation();
+  //   var newSong = $( "#song_url" ).val();
+  //   newSong = newSong.replace("https://youtu.be/", "");
+  //   videoIDs.push(newSong);
+  //   $(".request.rowBox").last().append("<div>New song added, refresh to view</div>") // append song here....... 
+  //   // $.post("/playlists/1/songs", {"song" : {"url" : $("#song_url").val()}}, function(data) {
+  //   //   // Implement Rails flash
+  //   // })
+  // });
 
-  $( "#add-song" ).on( "click", function(event) {
-    event.preventDefault();
-    // event.stopPropagation();
-    var newSong = $( "#song_url" ).val();
-    newSong = newSong.replace("https://youtu.be/", "");
-    videoIDs.push(newSong);
-    // $.post("/playlists/1/songs", {"song" : {"url" : $("#song_url").val()}}, function(data) {
-    //   // Implement Rails flash
-    // })
-  });
   $( "#skip-song" ).on( "click", function(event) {
     event.preventDefault();
     event.stopPropagation();
@@ -32,6 +33,43 @@ $(function() {
     if (player.getPlayerState() == 1) {
       currentVideoId++;
       player.loadVideoById(videoIDs[currentVideoId]);
+    }
+  });
+
+  $(".upvote").click(function(event) {
+    var requestId = $(this).attr("id")
+    requestId = requestId.replace("upvote-", "")
+    $.post("/requests/upvote", {"request_id": requestId}, function(data) {  
+      });
+  });
+
+  $(".downvote").click(function(event) {
+    var requestId = $(this).attr("id")
+    requestId = requestId.replace("downvote-", "")
+    $.post("/requests/downvote", {"request_id": requestId}, function(data) {  
+      });
+  });
+
+  $(".delete").click(function(event) {
+    var requestId = $(this).attr("id")
+    requestId = requestId.replace("delete-", "")
+    $('#request_'+ requestId).remove()
+    $.post("/requests/destroy", {"request_id": requestId}, {_method:'delete'}, null, "script");
+  });
+
+  $(":submit").click(function(event) {
+    if ($(this).attr('id') == "intelligent-add-song") {
+      event.preventDefault();
+      $.post(location.href + "/songs", $("form").serialize(), function(data) {
+        videoIDs.push(data.uid)  
+      })
+      $(".request.rowBox").last().append("<div>New song added, refresh to view</div>") // append song here....... 
+    } else if ($(this).attr('id') == "chat_send") {
+      event.preventDefault();
+      // $.post("/playlist//chat_messages", $("form").serialize(), function(data) { 
+      $.post(location.href + "/chat_messages", $("form").serialize(), function(data) {  
+      })
+      $("#new_chat_message")[0].reset();
     }
   });
 });

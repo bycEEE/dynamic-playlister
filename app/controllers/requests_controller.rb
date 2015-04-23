@@ -21,4 +21,9 @@ class RequestsController < ApplicationController
     Temp.broadcast("/playlists/#{request.playlist.id}/votes", broadcast_information)
     render :nothing => true
   end
+
+  def destroy
+    Request.find(params[:request_id]).destroy
+    render :nothing => true
+  end
 end

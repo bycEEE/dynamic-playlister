@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   post '/requests/upvote', to: 'requests#upvote'
   post '/requests/downvote', to: 'requests#downvote'
+  post '/requests/destroy', to: 'requests#destroy'
 
   resources :users #Limit resources
 
