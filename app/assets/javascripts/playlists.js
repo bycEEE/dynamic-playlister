@@ -42,7 +42,7 @@ $(function() {
   $("#intelligent-add-song").click(function(event) {
       event.preventDefault();
       $.post(location.href + "/songs", $("#add-song-form").serialize(), function(data) {
-        videoIDs.push(data.uid);  
+        
       });
   });
 
@@ -51,7 +51,7 @@ $(function() {
       // $.post("/playlist//chat_messages", $("form").serialize(), function(data) { 
       $.post(location.href + "/chat_messages", $("#chat-message-form").serialize(), function(data) {  
       });
-      $("#new_chat_message")[0].reset();
+      $("#chat_message_content").val("");
   });
 
 });

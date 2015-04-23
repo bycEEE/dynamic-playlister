@@ -36,6 +36,7 @@ $(function() {
 
   // add songs
   faye.subscribe("/playlists/" + match[1] + "/add", function(data) {
+    videoIDs.push(data.uid);
     $(".request.rowBox").last().append("<div class=\"voting\" id=\"voting-" + data.request_id + "\">" 
                                   + "<h6>" + data.vote_count + "</h6>"
                                   + "<a class=\"upvote\" id=\"upvote-" + data.request_id + "\"> upvote </a>"
@@ -43,17 +44,6 @@ $(function() {
                                   + "<a class=\"delete\" id = \"delete-" + data.request_id + "\">delete</a>"
                                   + "<a href=\"/songs/" + data.song_id + "\">" + data.name + "</a>"
                               + "</div>");
-    // <%= div_for request, class: "rowBox" do %>
-    //     <div class="voting" id="voting-<%= request.id%>">
-    //       <h6 id="vote-count-<%= request.id%>"><%= request.vote_count %></h6>
-    //       <% if !@playlist.locked %>
-    //         <a class="upvote" id="upvote-<%= request.id%>"> upvote </a>
-    //         <a class="downvote" id="downvote-<%= request.id%>">downvote</a>
-    //         <a class="delete" id = "delete-<%=  request.id %>">delete</a>  
-    //       <% end %>
-    //     </div>
-    //     <%= link_to "#{request.song.name}", request.song %>
-    //   <% end %>
   });
 
   // change votes

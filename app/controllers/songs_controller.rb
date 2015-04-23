@@ -17,8 +17,11 @@ class SongsController < ApplicationController
           :listener_id => current_user.id,
           :playlist_id => playlist.id })
     end
-    # binding.pry
-    broadcast_information = { :request_id => "#{request.id}", :name => "#{song.name}", :vote_count => "#{request.vote_count}", :song_id => "#{request.song_id}" }
+    broadcast_information = { :request_id => "#{request.id}", 
+                              :name => "#{song.name}", 
+                              :vote_count => "#{request.vote_count}", 
+                              :song_id => "#{request.song_id}",
+                              :uid => "#{song.uid}"}
     FayeServer.broadcast("/playlists/#{request.playlist_id}/add", broadcast_information)
     render :nothing => true
   end
