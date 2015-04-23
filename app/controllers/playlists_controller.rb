@@ -23,8 +23,18 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def update
+    @playlist = Playlist.find(params[:id])
+    @playlist.locked = params[:playlist][:locked]
+
+    if @playlist.update_attributes(playlist_params)
+      flash[:notice] = "Playlist successfully updated"
+      redirect_to @playlist
+    end
+  end
+
   private
   def playlist_params
-    params.require(:playlist).permit(:name, :host_id)
+    params.require(:playlist).permit(:name, :host_id, :locked)
   end
 end

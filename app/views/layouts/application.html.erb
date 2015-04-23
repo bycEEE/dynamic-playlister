@@ -9,6 +9,9 @@
 </head>
 <body>
 <%= render 'layouts/header' %>
+  <% if flash[:notice] %>
+    <center><div class="notice"><%= flash[:notice] %></div></center>
+  <% end %>
 <%= yield %>
 
 </body>

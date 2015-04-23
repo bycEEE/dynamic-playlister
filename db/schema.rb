@@ -24,8 +24,9 @@ ActiveRecord::Schema.define(version: 20150423171344) do
   create_table "playlists", force: :cascade do |t|
     t.string   "name"
     t.integer  "host_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "locked",     default: false
   end
 
   create_table "requests", force: :cascade do |t|
