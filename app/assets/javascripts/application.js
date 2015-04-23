@@ -36,17 +36,18 @@ $(function() {
 
   // add songs
   faye.subscribe("/playlists/" + match[1], function(data) {
-    // $("#message_box").append("<li>" + data.content + "</li>")
     $("#playlist-table").append("<tr class=\"current_user_comment\"><td>" +
                               "</td></tr>")
-    // eval(data)
   });
 
   // change votes
   faye.subscribe("/playlists/" + match[1] +"/votes", function(data) {
-    // $("#message_box").append("<li>" + data.content + "</li>")
     $("#vote-count-"+data.request_id).text(data.votes); 
     
-    // eval(data)
+  });
+
+  // delete song
+  faye.subscribe("/playlists/" + match[1] +"/delete", function(data) {
+    $('#request_'+ data.request_id).remove();
   });
 });

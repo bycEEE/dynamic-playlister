@@ -1,15 +1,10 @@
 class RequestsController < ApplicationController
   def upvote
     request = Request.find(params[:request_id])
-    binding.pry
-    if !(request.up_voters.include?(current_user.id))
-      request.votes = request.votes + 1
-      request.add_upvoter(current_user.id)
-      request.save
-      broadcast_information = { :votes => "#{request.votes}", :request_id => "#{request.id}" }
-      Temp.broadcast("/playlists/#{request.playlist.id}/votes", broadcast_information)
-    end
-    binding.pry
+    request.votes = request.votes + 1
+    request.save
+    broadcast_information = { :votes => "#{request.votes}", :request_id => "#{request.id}" }
+    FayeServer.broadcast("/playlists/#{request.playlist.id}/votes", broadcast_information)
     render :nothing => true
   end
 
@@ -18,12 +13,15 @@ class RequestsController < ApplicationController
     request.votes = request.votes - 1
     request.save
     broadcast_information = { :votes => "#{request.votes}", :request_id => "#{request.id}" }
-    Temp.broadcast("/playlists/#{request.playlist.id}/votes", broadcast_information)
+    FayeServer.broadcast("/playlists/#{request.playlist.id}/votes", broadcast_information)
     render :nothing => true
   end
 
   def destroy
-    Request.find(params[:request_id]).destroy
+    request = Request.find(params[:request_id])
+    broadcast_information = { :request_id => "#{request.id}" }
+    request.destroy
+    FayeServer.broadcast("/playlists/#{request.playlist.id}/delete", broadcast_information)
     render :nothing => true
   end
 end

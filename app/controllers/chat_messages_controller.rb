@@ -5,7 +5,7 @@ class ChatMessagesController < ApplicationController
 		broadcast_information = { :content => "#{@chat_message.content}", :user => "#{@chat_message.user.name}" }
 		# Temp.broadcast("/chat_messages/#{@chat_message.playlist.id}", @chat_message)
 		# Temp.broadcast("/chat_messages/#{@chat_message.playlist.id}", @chat_message)
-		Temp.broadcast("/chat_messages/#{@chat_message.playlist.id}", broadcast_information)
+		FayeServer.broadcast("/chat_messages/#{@chat_message.playlist.id}", broadcast_information)
 		render :nothing => true
 	end
 

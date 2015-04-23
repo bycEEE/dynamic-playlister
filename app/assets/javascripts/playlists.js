@@ -53,7 +53,6 @@ $(function() {
   $(".delete").click(function(event) {
     var requestId = $(this).attr("id")
     requestId = requestId.replace("delete-", "")
-    $('#request_'+ requestId).remove()
     $.post("/requests/destroy", {"request_id": requestId}, {_method:'delete'}, null, "script");
   });
 
