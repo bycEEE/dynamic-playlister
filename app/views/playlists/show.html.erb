@@ -68,7 +68,9 @@
               <% if !@playlist.locked %>
                 <a class="upvote" id="upvote-<%= request.id%>"> upvote </a>
                 <a class="downvote" id="downvote-<%= request.id%>">downvote</a>
-                <a class="delete" id = "delete-<%=  request.id %>">delete</a>  
+                <% if current_user.id == @playlist.host_id %>
+                  <a class="delete" id="delete-<%=  request.id %>">delete</a>
+                <% end %>
               <% end %>
             </div>
             <%= link_to "#{request.song.name}", request.song %>
