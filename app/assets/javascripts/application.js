@@ -49,7 +49,7 @@ $(function() {
   // delete song
   faye.subscribe("/playlists/" + match[1] +"/delete", function(data) {
     $('#request_'+ data.request_id).remove();
-    var songToDelete = videoIDs.indexOf(data.request_song_uid)
+    var songToDelete = videoIDs.indexOf(data.request_song_uid);
     videoIDs.splice(songToDelete, 1);
   });
 });
