@@ -57,20 +57,18 @@
 
 <div id="playlist" class="container col-xs-9 col-md-6 col-xs-offset-2 col-md-offset-2">
   <h1><%= @playlist.name %></h1>
-  <table if="playlist-table">
+  <table id="playlist-table">
     <% @playlist.requests.each do |request| %>
       <%= div_for request, class: "rowBox" do %>
-          <div>
-            <div class="voting" id="voting-<%= request.id%>">
-              <h6 id="vote-count-<%= request.id%>"><%= request.vote_count %></h6>
-              <% if !@playlist.locked %>
-                <a class="upvote" id="upvote-<%= request.id%>"> upvote </a>
-                <a class="downvote" id="downvote-<%= request.id%>">downvote</a>
-                <a class="delete" id = "delete-<%=  request.id %>">delete</a>  
-              <% end %>
-            </div>
-            <%= link_to "#{request.song.name}", request.song %>
-          </div>
+        <div class="voting" id="voting-<%= request.id%>">
+          <h6 id="vote-count-<%= request.id%>"><%= request.vote_count %></h6>
+          <% if !@playlist.locked %>
+            <a class="upvote" id="upvote-<%= request.id%>"> upvote </a>
+            <a class="downvote" id="downvote-<%= request.id%>">downvote</a>
+            <a class="delete" id = "delete-<%=  request.id %>">delete</a>  
+          <% end %>
+        </div>
+        <%= link_to "#{request.song.name}", request.song %>
       <% end %>
     <% end %>
   </table>

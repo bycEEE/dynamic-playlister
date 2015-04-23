@@ -35,9 +35,25 @@ $(function() {
     });
 
   // add songs
-  faye.subscribe("/playlists/" + match[1], function(data) {
-    $("#playlist-table").append("<tr class=\"current_user_comment\"><td>" +
-                              "</td></tr>")
+  faye.subscribe("/playlists/" + match[1] + "/add", function(data) {
+    $(".request.rowBox").last().append("<div class=\"voting\" id=\"voting-" + data.request_id + "\">" 
+                                  + "<h6>" + data.vote_count + "</h6>"
+                                  + "<a class=\"upvote\" id=\"upvote-" + data.request_id + "\"> upvote </a>"
+                                  + "<a class=\"downvote\" id=\"downvote-" + data.request_id + "\">downvote</a>"
+                                  + "<a class=\"delete\" id = \"delete-" + data.request_id + "\">delete</a>"
+                                  + "<a href=\"/songs/" + data.song_id + "\">" + data.name + "</a>"
+                              + "</div>");
+    // <%= div_for request, class: "rowBox" do %>
+    //     <div class="voting" id="voting-<%= request.id%>">
+    //       <h6 id="vote-count-<%= request.id%>"><%= request.vote_count %></h6>
+    //       <% if !@playlist.locked %>
+    //         <a class="upvote" id="upvote-<%= request.id%>"> upvote </a>
+    //         <a class="downvote" id="downvote-<%= request.id%>">downvote</a>
+    //         <a class="delete" id = "delete-<%=  request.id %>">delete</a>  
+    //       <% end %>
+    //     </div>
+    //     <%= link_to "#{request.song.name}", request.song %>
+    //   <% end %>
   });
 
   // change votes
@@ -53,10 +69,11 @@ $(function() {
     videoIDs.splice(songToDelete, 1);
   });
 
+    // WHAT IS THIS? MAKING SURE WE DON'T NEED IT AND THAT IT IS INDEED COPY PASTA
   // add song
-  faye.subscribe("/playlists/" + match[1] +"/add", function(data) {
-    $('#request_'+ data.request_id).remove();
-    var songToDelete = videoIDs.indexOf(data.request_song_uid);
-    videoIDs.splice(songToDelete, 1);
-  });
+  // faye.subscribe("/playlists/" + match[1] +"/add", function(data) {
+    // $('#request_'+ data.request_id).remove();
+    // var songToDelete = videoIDs.indexOf(data.request_song_uid);
+    // videoIDs.splice(songToDelete, 1);
+  // });
 });

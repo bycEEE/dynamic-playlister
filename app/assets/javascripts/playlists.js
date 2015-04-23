@@ -42,9 +42,8 @@ $(function() {
   $("#intelligent-add-song").click(function(event) {
       event.preventDefault();
       $.post(location.href + "/songs", $("form").serialize(), function(data) {
-        videoIDs.push(data.uid);  
+        videoIDs.push(data.uid);
       });
-      $(".request.rowBox").last().append("<div>New song added, refresh to view</div>") // append song here....... 
   });
 
   $("#chat_send").click(function(event) {
