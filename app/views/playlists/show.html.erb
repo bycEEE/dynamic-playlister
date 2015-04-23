@@ -45,19 +45,19 @@
   <h1><%= @playlist.name %></h1>
   <table if="playlist-table">
     <% @playlist.requests.each do |request| %>
-    <tr>
-      <div>
-        <div class="voting" id="voting-<%= request.id%>">
-          <h6 id="vote-count-<%= request.id%>"><%= request.votes %></h6>
-          <a class="upvote" id="upvote-<%= request.id%>"> upvote </a>
-          <a class="downvote" id="downvote-<%= request.id%>">downvote</a>
-        </div>
-        <%= link_to "#{request.song.name}", request.song  %>
-      </div>
-    </tr>
+      <%= div_for request, class: "rowBox" do %>
+          <div>
+            <div class="voting" id="voting-<%= request.id%>">
+              <h6 id="vote-count-<%= request.id%>"><%= request.votes %></h6>
+              <a class="upvote" id="upvote-<%= request.id%>"> upvote </a>
+              <a class="downvote" id="downvote-<%= request.id%>">downvote</a>
+              <a class="delete" id = "delete-<%=  request.id %>">delete</a>
+            </div>
+            <%= link_to "#{request.song.name}", request.song %>
+          </div>
+      <% end %>
     <% end %>
   </table>
-
 
   <h2>What we want:</h2>
   <%= render 'add_song_form' %>
@@ -65,40 +65,3 @@
 
 <!-- CHAT FEATURE: -->
 <%= render 'chat_box_and_form' %>
-
-<!-- JS -->
-<script>
-	$(function() {
-		$(":submit").click(function(event) {
-      // debugger
-      if ($(this).attr('id') == "intelligent-add-song") {
-        event.preventDefault();
-        $.post(location.href + "/songs", $("form").serialize(), function(data) {
-          videoIDs.push(data.uid)  
-        })
-
-      } else if ($(this).attr('id') == "chat_send") {
-        event.preventDefault();
-  			// $.post("/playlist//chat_messages", $("form").serialize(), function(data) {	
-  			$.post(location.href + "/chat_messages", $("form").serialize(), function(data) {	
-  			})
-  			$("#new_chat_message")[0].reset();
-      }
-
-		});
-
-    $(".upvote").click(function(event) {
-      var requestId = $(this).attr("id")
-      requestId = requestId.replace("upvote-", "")
-      $.post("/requests/upvote", {"request_id": requestId}, function(data) {  
-        });
-    });
-
-    $(".downvote").click(function(event) {
-      var requestId = $(this).attr("id")
-      requestId = requestId.replace("downvote-", "")
-      $.post("/requests/downvote", {"request_id": requestId}, function(data) {  
-        });
-    });
-	});
-</script>
