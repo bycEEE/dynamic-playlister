@@ -8,6 +8,8 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.find(params[:id])
     @songs = @playlist.list_all_uid
     @song = Song.new
+    # broadcast_information = { :votes => "#{request.vote_count}", :request_id => "#{request.id}" }
+    # FayeServer.broadcast("/playlists/#{request.playlist.id}/votes", broadcast_information)
   end
 
   def new
@@ -23,18 +25,18 @@ class PlaylistsController < ApplicationController
     end
   end
 
-  # def update
-  #   @playlist = Playlist.find(params[:id])
-  #   @playlist.locked = params[:playlist][:locked]
+  def update
+    @playlist = Playlist.find(params[:id])
 
-  #   if @playlist.update_attributes(playlist_params)
-  #     flash[:notice] = "Playlist successfully updated"
-  #     redirect_to @playlist
-  #   end
-  # end
+    if @playlist.update_attributes(playlist_params)
+      flash[:notice] = "Playlist successfully updated"
+      redirect_to @playlist
+    end
+  end
 
   private
   def playlist_params
     params.require(:playlist).permit(:name, :host_id, :locked)
   end
+
 end

@@ -1,4 +1,4 @@
-<%= form_tag(songs_path, method: "post") do %>
+<%= form_tag(songs_path, method: "post", :id => "add-song-form") do %>
   <%= hidden_field_tag :user_id, current_user.id %>
   <%= hidden_field_tag :playlist_id, params["id"] %>
   <%= label_tag "Enter Youtube URL or Search Term: " %>

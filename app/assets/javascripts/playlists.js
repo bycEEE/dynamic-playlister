@@ -20,28 +20,29 @@ $(function() {
   });
 
   $(".upvote").click(function(event) {
-    var requestId = $(this).attr("id")
-    requestId = requestId.replace("upvote-", "")
+    var requestId = $(this).attr("id");
+    requestId = requestId.replace("upvote-", "");
     $.post("/votes/upvote", {"request_id": requestId}, function(data) {  
       });
   });
 
   $(".downvote").click(function(event) {
-    var requestId = $(this).attr("id")
-    requestId = requestId.replace("downvote-", "")
+    var requestId = $(this).attr("id");
+    requestId = requestId.replace("downvote-", "");
     $.post("/votes/downvote", {"request_id": requestId}, function(data) {  
       });
   });
 
   $(".delete").click(function(event) {
-    var requestId = $(this).attr("id")
-    requestId = requestId.replace("delete-", "")
+    var requestId = $(this).attr("id");
+    requestId = requestId.replace("delete-", "");
     $.post("/requests/destroy", {"request_id": requestId}, {_method:'delete'}, null, "script");
   });
 
   $("#intelligent-add-song").click(function(event) {
       event.preventDefault();
-      $.post(location.href + "/songs", $("form").serialize(), function(data) {
+      debugger
+      $.post(location.href + "/songs", $("#add-song-form").serialize(), function(data) {
         videoIDs.push(data.uid);  
       });
       $(".request.rowBox").last().append("<div>New song added, refresh to view</div>") // append song here....... 
@@ -49,8 +50,9 @@ $(function() {
 
   $("#chat_send").click(function(event) {
       event.preventDefault();
+      debugger
       // $.post("/playlist//chat_messages", $("form").serialize(), function(data) { 
-      $.post(location.href + "/chat_messages", $("form").serialize(), function(data) {  
+      $.post(location.href + "/chat_messages", $("#chat-message-form").serialize(), function(data) {  
       });
       $("#new_chat_message")[0].reset();
   });

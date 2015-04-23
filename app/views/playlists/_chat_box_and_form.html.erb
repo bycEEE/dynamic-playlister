@@ -16,7 +16,7 @@
     </table>
   </div>
 
-  <%= form_for [@playlist, ChatMessage.new] do |f| %>
+  <%= form_for [@playlist, ChatMessage.new], :html => {:id => "chat-message-form"} do |f| %>
     <%= f.hidden_field :playlist_id, value: @playlist.id %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.text_field :content %>

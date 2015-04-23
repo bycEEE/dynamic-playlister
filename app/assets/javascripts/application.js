@@ -54,9 +54,9 @@ $(function() {
   });
 
   // add song
-  faye.subscribe("/playlists/" + match[1] +"/add", function(data) {
-    $('#request_'+ data.request_id).remove();
-    var songToDelete = videoIDs.indexOf(data.request_song_uid);
-    videoIDs.splice(songToDelete, 1);
-  });
+  // faye.subscribe("/playlists/" + match[1] +"/add", function(data) {
+  //   $('#request_'+ data.request_id).remove();
+  //   var songToDelete = videoIDs.indexOf(data.request_song_uid);
+  //   videoIDs.splice(songToDelete, 1);
+  // });
 });
