@@ -3,8 +3,8 @@ class User < ActiveRecord::Base
   has_many :requests, :foreign_key => 'listener_id'
   has_many :listener_playlists, -> { uniq }, through: :requests, :source => :playlist
   has_many :songs, through: :requests, :foreign_key => 'listener_id'
-
   has_many :chat_messages
+  has_many :votes
 
   def twitter
     @client = Twitter::REST::Client.new do |config|

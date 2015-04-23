@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :votes
+
   get '/search_suggestions', to: 'search#autocomplete'
 
   root to: 'static_pages#index'
@@ -14,8 +16,8 @@ Rails.application.routes.draw do
   resources :requests
   resources :songs
 
-  post '/requests/upvote', to: 'requests#upvote'
-  post '/requests/downvote', to: 'requests#downvote'
+  post '/votes/upvote', to: 'votes#upvote'
+  post '/votes/downvote', to: 'votes#downvote'
   post '/requests/destroy', to: 'requests#destroy'
 
   resources :users #Limit resources

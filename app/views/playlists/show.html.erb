@@ -48,10 +48,10 @@
       <%= div_for request, class: "rowBox" do %>
           <div>
             <div class="voting" id="voting-<%= request.id%>">
-              <h6 id="vote-count-<%= request.id%>"><%= request.votes %></h6>
+              <h6 id="vote-count-<%= request.id%>"><%= request.vote_count%></h6>
               <a class="upvote" id="upvote-<%= request.id%>"> upvote </a>
               <a class="downvote" id="downvote-<%= request.id%>">downvote</a>
-              <a class="delete" id = "delete-<%=  request.id %>">delete</a>
+              <a class="delete" id="delete-<%=  request.id %>">delete</a>
             </div>
             <%= link_to "#{request.song.name}", request.song %>
           </div>

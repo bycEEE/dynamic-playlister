@@ -9,7 +9,7 @@
           </tr>
         <% else %>
           <tr class="other_user_comment">
-            <td><%= message.content %></td>
+            <td><%= message.user.name %>: <%= message.content %></td>
           </tr>
         <% end %>
       <% end %>
