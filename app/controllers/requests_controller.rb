@@ -6,4 +6,11 @@ class RequestsController < ApplicationController
     FayeServer.broadcast("/playlists/#{request.playlist.id}/delete", broadcast_information)
     render :nothing => true
   end
+
+  def arrange
+    video_ids = params[:video_ids]
+    playlist = Playlist.find(params[:playlist_id])
+    playlist.update_position(video_ids)
+    render :nothing => true
+  end
 end

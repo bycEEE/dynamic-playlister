@@ -9,6 +9,13 @@ class Playlist < ActiveRecord::Base
   #implement dependent destroy for requests
 
   def list_all_uid
-    songs.each_with_object([]) { |song, songs_array| songs_array << "\'#{song.uid}\'"}.join(",") 
+    requests.order(:position).each_with_object([]) { |request, songs_array| songs_array << "\'#{request.song.uid}\'"}.join(",") 
+  end
+
+  def update_position(video_id_array)
+    requests.each_with_index do |request, index|
+      # request.position = video_id_array.index(request.song.uid)
+      request.update(position: video_id_array.index(request.song.uid))
+    end
   end
 end

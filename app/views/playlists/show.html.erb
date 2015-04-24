@@ -68,10 +68,12 @@
 
 </center>
 
+<!-- need to make now playing div -->
+
 <div id="playlist" class="container col-xs-9 col-md-6 col-xs-offset-2 col-md-offset-2">
   <h1><%= @playlist.name %></h1>
   <div id="songs-list">
-    <% @playlist.requests.each do |request| %>
+    <% @playlist.requests.order(:position).each do |request| %>
       <%= div_for request, class: "rowBox" do %>
         <div class="voting" id="voting-<%= request.id%>">
           <h6 id="vote-count-<%= request.id%>"><%= request.vote_count %></h6>

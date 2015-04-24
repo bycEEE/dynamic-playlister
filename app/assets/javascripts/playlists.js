@@ -1,4 +1,7 @@
 $(function() {
+  var idRegex = /http:\/\/localhost:3000\/playlists\/(\d+)/;
+  var match = idRegex.exec(location.href);
+
    $("#search_term_or_url").autocomplete({
     minLength: 3,
     source: "/search_suggestions",
@@ -52,7 +55,6 @@ $(function() {
   $("#intelligent-add-song").click(function(event) {
       event.preventDefault();
       $.post(location.href + "/songs", $("#add-song-form").serialize(), function(data) {
-        
       });
   });
 
@@ -64,6 +66,7 @@ $(function() {
       $("#chat_message_content").val("");
   });
 
+  // need to make now playing div that is not sortable
   $("#songs-list").sortable({
       // items: 'div:not(:first)',
       connectWith: ".connectedSortable",
@@ -72,6 +75,8 @@ $(function() {
         currentVideoId = -1 + songsPlayed;
         $("#songs-list").find(".song-uid").each(function(){ 
           videoIDs.push(this.id); 
+        });
+        $.post("/requests/arrange", {"video_ids": videoIDs, "playlist_id": match[1] }, function(data) {  
         });
       }
   });

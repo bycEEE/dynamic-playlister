@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   post '/votes/upvote', to: 'votes#upvote'
   post '/votes/downvote', to: 'votes#downvote'
+  post '/requests/arrange', to: 'requests#arrange'
   post '/requests/destroy', to: 'requests#destroy'
   get '/playlists/:id/youtube_search', to: 'search#youtube_search'
 

@@ -8,14 +8,16 @@ class SongsController < ApplicationController
       request = Request.find_or_create_by(
       {   :song_id => song.id, 
           :listener_id => current_user.id,
-          :playlist_id => playlist.id })
+          :playlist_id => playlist.id,
+          :position => playlist.requests.last.position + 1 })
     else
       song_hash = Song.get_song_hash_from_url(params[:search_term_or_url])
       song = Song.find_or_create_by(song_hash)
       request = Request.find_or_create_by(
       {   :song_id => song.id, 
           :listener_id => current_user.id,
-          :playlist_id => playlist.id })
+          :playlist_id => playlist.id,
+          :position => playlist.requests.last.position + 1 })
     end
     broadcast_information = { :request_id => "#{request.id}", 
                               :name => "#{song.name}", 
