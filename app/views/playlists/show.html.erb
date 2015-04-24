@@ -2,12 +2,16 @@
 <script src="http://www.youtube.com/iframe_api"></script>
 
 <script>
-    /*
-     * Put your video IDs in this array
-     */
-    var videoIDs = [
-        'i_kF4zLNKio', <%= @songs.html_safe %>
-    ];
+    if (<%= @songs.empty? %>) {
+      var videoIDs = [
+          'i_kF4zLNKio', <%= @songs.html_safe %>
+      ];
+    }
+    else {
+      var videoIDs = [
+          <%= @songs.html_safe %>
+      ];
+    }
 
     var player, currentVideoId = 0;
 
@@ -28,7 +32,8 @@
 
     function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.ENDED) {
-            currentVideoId++;
+          currentVideoId++;
+          $('#songs-list').find('div').first().remove();
             if (currentVideoId < videoIDs.length) {
                 player.loadVideoById(videoIDs[currentVideoId]);
             }
@@ -59,7 +64,7 @@
 
 <div id="playlist" class="container col-xs-9 col-md-6 col-xs-offset-2 col-md-offset-2">
   <h1><%= @playlist.name %></h1>
-  <table id="playlist-table">
+  <div id="songs-list">
     <% @playlist.requests.each do |request| %>
       <%= div_for request, class: "rowBox" do %>
         <div class="voting" id="voting-<%= request.id%>">
@@ -72,10 +77,10 @@
             <% end %>
           <% end %>
         </div>
-        <%= link_to "#{request.song.name}", request.song %>
+        <%= link_to "#{request.song.name}", request.song, id: "#{request.song.uid}", class: "song-uid" %>
       <% end %>
     <% end %>
-  </table>
+  </div>
   <% if !@playlist.locked %>
     <h2>What we want:</h2>
     <%= render 'add_song_form' %>

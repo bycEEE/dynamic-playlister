@@ -54,6 +54,24 @@ $(function() {
       $("#chat_message_content").val("");
   });
 
+  $("#songs-list").sortable({
+      // items: 'div:not(:first)',
+      connectWith: ".connectedSortable",
+      stop: function(event, ui) {
+        videoIDs.length = 0;
+        currentVideoId = -1;
+        $("#songs-list").find(".song-uid").each(function(){ 
+          videoIDs.push(this.id); 
+        });
+      }
+  });
+
+  $(".song-uid").click(function(event) {
+    event.preventDefault();
+    player.loadVideoById(videoIDs[$.inArray(this.id, videoIDs)]);
+    currentVideoId = $.inArray(this.id, videoIDs)
+  });
+
 });
 
 // to write own autocomplete
