@@ -10,11 +10,21 @@ $(function() {
   $( "#skip-song" ).on( "click", function(event) {
     event.preventDefault();
     event.stopPropagation();
-    if (player.getPlayerState() == 0) {
+    if (player.getPlayerState() == 0) { // ended
+      $('#songs-list').find("#" + whatIsPlaying).parent().closest('div').hide();
+      songsPlayed++;
       player.loadVideoById(videoIDs[currentVideoId]);
     }
-    if (player.getPlayerState() == 1) {
+    if (player.getPlayerState() == 1) { // playing
+      $('#songs-list').find("#" + whatIsPlaying).parent().closest('div').hide();
       currentVideoId++;
+      songsPlayed++;
+      player.loadVideoById(videoIDs[currentVideoId]);
+    }
+    if (player.getPlayerState() == 2) { // paused
+      $('#songs-list').find("#" + videoIDs[currentVideoId]).parent().closest('div').hide();
+      currentVideoId++;
+      songsPlayed++;
       player.loadVideoById(videoIDs[currentVideoId]);
     }
   });
@@ -59,7 +69,7 @@ $(function() {
       connectWith: ".connectedSortable",
       stop: function(event, ui) {
         videoIDs.length = 0;
-        currentVideoId = -1;
+        currentVideoId = -1 + songsPlayed;
         $("#songs-list").find(".song-uid").each(function(){ 
           videoIDs.push(this.id); 
         });
