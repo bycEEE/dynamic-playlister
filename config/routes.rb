@@ -14,6 +14,12 @@ Rails.application.routes.draw do
   match '/auth/failure', to: redirect('/'), via: 'get'
   get 'logout', to: 'sessions#destroy'
 
+  # Dashboard
+  get '/dashboard', to: 'users#dashboard'
+
+  # Tags
+  get 'tags/:tag', to: 'playlists#index', as: :tag
+
   resources :votes
   resources :requests
   resources :songs
@@ -26,5 +32,8 @@ Rails.application.routes.draw do
   resources :playlists do
     resources :songs
   end
+
+  # 
+
 
 end

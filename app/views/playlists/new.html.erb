@@ -2,6 +2,8 @@ Create a new playlist:<br>
 <%= form_for(@playlist) do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
+    <%= f.label :tag_list, "Tags (seperated by commas)" %>
+    <%= f.text_field :tag_list %>
     <%= f.hidden_field :host_id, :value => current_user.id %>
     <%= f.submit "Create a new playlist", class: "btn btn-primary" %>
 <% end %>

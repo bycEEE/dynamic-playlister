@@ -1,6 +1,11 @@
 class PlaylistsController < ApplicationController
   def index
-    @playlists = Playlist.all
+    if params[:tag]
+      @playlists = Playlist.tagged_with(params[:tag])
+      @tag = params[:tag]
+    else
+      @playlists = Playlist.all
+    end
   end
 
   def show
@@ -36,7 +41,7 @@ class PlaylistsController < ApplicationController
 
   private
   def playlist_params
-    params.require(:playlist).permit(:name, :host_id, :locked)
+    params.require(:playlist).permit(:name, :host_id, :locked, :tag_list)
   end
 
 end

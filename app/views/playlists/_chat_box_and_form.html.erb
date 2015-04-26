@@ -1,4 +1,11 @@
 <div id="chat" class="container col-xs-6 col-md-4">
+
+<p>
+  <!-- using raw here. should probably have helper method to escape html -->
+  Tags: <%= raw @playlist.tag_list.map { |tag| link_to tag, tag_path(tag) }.join(", ") %>
+</p>
+
+
   <h1>Chat:</h1>
   <div id="message-div">
     <table id="message-table" class="table">

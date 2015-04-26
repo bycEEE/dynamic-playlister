@@ -6,6 +6,7 @@ class Song < ActiveRecord::Base
   def self.get_song_hash_from_url(videoid)
     client = YouTubeIt::Client.new(:dev_key => ENV["YOUTUBE_KEY"])
     video = client.video_by(videoid)
+    binding.pry
     song_hash = {
       :name => video.title,
       :url => video.media_content.first.url,
