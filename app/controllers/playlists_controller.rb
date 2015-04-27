@@ -31,6 +31,10 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def edit
+    @playlist = Playlist.find(params[:id])
+  end
+
   def update
     @playlist = Playlist.find(params[:id])
 
@@ -42,7 +46,7 @@ class PlaylistsController < ApplicationController
 
   private
   def playlist_params
-    params.require(:playlist).permit(:name, :host_id, :locked, :tag_list)
+    params.require(:playlist).permit(:name, :host_id, :locked, :tag_list, :private)
   end
 
 end

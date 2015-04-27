@@ -1,0 +1,31 @@
+<h1>Edit <% @playlist.name %>:</h1>
+<%= form_for(@playlist) do |f| %>
+
+    <% if @playlist.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@playlist.errors.count, "error") %> prohibited
+        this playlist from being saved:
+      </h2>
+      <ul>
+        <% @playlist.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name, :value => @playlist.name %><br>
+
+    <%= f.label :private, "I want this playlist to be private" %>
+    <%= f.radio_button :private, true, :checked => @playlist.private, :value=> true %><br>
+
+    <%= f.label :tag_list, "Tags (seperated by commas)" %>
+    <%= f.text_field :tag_list, :value => @playlist.tag_list.join(", ") %><br>
+
+    <%= f.hidden_field :host_id, :value => current_user.id %>
+    <%= f.submit "Create a new playlist", class: "btn btn-primary" %>
+<% end %>
+
+<%= link_to 'Back', @playlist %>

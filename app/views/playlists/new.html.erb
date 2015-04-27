@@ -1,15 +1,15 @@
 Create a new playlist:<br>
 <%= form_for(@playlist) do |f| %>
+
     <%= f.label :name %>
     <%= f.text_field :name %><br>
 
-    <%= f.radio_button :private, false %>
-    <%= f.label :private, "I want this playlist to be public" %><br>
-    <%= f.radio_button :private, true %>
-    <%= f.label :private, "I want this playlist to be private" %><br>
+    <%= f.label :private, "I want this playlist to be private" %>
+    <%= f.radio_button :private, true, :checked => false, :value=> true %><br>
 
     <%= f.label :tag_list, "Tags (seperated by commas)" %>
     <%= f.text_field :tag_list %><br>
+
     <%= f.hidden_field :host_id, :value => current_user.id %>
     <%= f.submit "Create a new playlist", class: "btn btn-primary" %>
 <% end %>
