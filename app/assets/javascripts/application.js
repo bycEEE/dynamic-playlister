@@ -37,13 +37,16 @@ $(function() {
   // add songs
   faye.subscribe("/playlists/" + match[1] + "/add", function(data) {
     videoIDs.push(data.uid);
-    $(".request.rowBox").last().append("<div class=\"voting\" id=\"voting-" + data.request_id + "\">" 
-                                  + "<h6>" + data.vote_count + "</h6>"
+    $("#songs-list").last().append("<div class=\"request rowBox ui-sortable-handle\" id=\"request_" + data.request_id + "\">"
+                                  + "<div class=\"voting\" id=\"voting-" + data.request_id + "\">" 
+                                  + "<h6 id=\"vote-count-" + data.request_id + "\">" + data.vote_count + "</h6>"
                                   + "<a class=\"upvote\" id=\"upvote-" + data.request_id + "\"> upvote </a>"
                                   + "<a class=\"downvote\" id=\"downvote-" + data.request_id + "\">downvote</a>"
                                   + "<a class=\"delete\" id = \"delete-" + data.request_id + "\">delete</a>"
-                                  + "<a href=\"/songs/" + data.song_id + "\">" + data.name + "</a>"
-                              + "</div>");
+                                  + "</div>"
+                                  + "<a id="+data.uid+" class=\"song-uid\" href=\"/songs/" + data.song_id + "\">" + data.name + "</a>"
+                                  + "<div>"
+                                  );
   });
 
   // change votes

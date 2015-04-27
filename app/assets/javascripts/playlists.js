@@ -67,6 +67,7 @@ $(function() {
   });
 
   // need to make now playing div that is not sortable
+  // logic relies on songs-list song-uid to exist. cannot delete elements
   $("#songs-list").sortable({
       // items: 'div:not(:first)',
       connectWith: ".connectedSortable",
@@ -74,7 +75,7 @@ $(function() {
         videoIDs.length = 0;
         currentVideoId = -1 + songsPlayed;
         $("#songs-list").find(".song-uid").each(function(){ 
-          videoIDs.push(this.id); 
+          videoIDs.push(this.id);
         });
         $.post("/requests/arrange", {"video_ids": videoIDs, "playlist_id": match[1] }, function(data) {  
         });

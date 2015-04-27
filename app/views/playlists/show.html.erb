@@ -38,11 +38,12 @@
           songsPlayed++;
           currentVideoId++;
             if (currentVideoId < videoIDs.length) {
-                player.loadVideoById(videoIDs[currentVideoId]);
+               player.loadVideoById(videoIDs[currentVideoId]);
             }
         }
         if (event.data == YT.PlayerState.PLAYING) {
           whatIsPlaying = videoIDs[currentVideoId]
+          document.getElementById('currently_playing').innerHTML = 'Currently playing: ' + player.getVideoData().title;
         }
     }
 </script>
@@ -68,7 +69,9 @@
 
 </center>
 
-<!-- need to make now playing div -->
+<div id="currently_playing">
+  Currently playing nothing
+</div>
 
 <div id="playlist" class="container col-xs-9 col-md-6 col-xs-offset-2 col-md-offset-2">
   <h1><%= @playlist.name %></h1>
