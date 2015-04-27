@@ -1,5 +1,7 @@
 <div id="chat" class="container col-xs-6 col-md-4">
 
+<%= link_to_if(@playlist.host == current_user, "Edit Playlist Information", { controller: "playlists", action: "edit" })%>
+
 <p>
   <!-- using raw here. should probably have helper method to escape html -->
   Tags: <%= raw @playlist.tag_list.map { |tag| link_to tag, tag_path(tag) }.join(", ") %>
