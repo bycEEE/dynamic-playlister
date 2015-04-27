@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
   # Tags
   get 'tags/:tag', to: 'playlists#index', as: :tag
+  # Search by Tags and playlist title
+  get '/search', to: 'search#playlist_search'
 
   resources :votes
   resources :requests
