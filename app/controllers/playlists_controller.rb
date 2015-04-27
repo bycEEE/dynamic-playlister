@@ -22,6 +22,7 @@ class PlaylistsController < ApplicationController
   end
 
   def create
+    binding.pry
     @playlist = current_user.host_playlists.build(playlist_params)
     if @playlist.save
       redirect_to @playlist
