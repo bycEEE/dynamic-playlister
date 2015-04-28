@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   root to: 'static_pages#index'
 
   get '/search_suggestions', to: 'search#autocomplete'
@@ -15,6 +15,15 @@ Rails.application.routes.draw do
   match '/auth/failure', to: redirect('/'), via: 'get'
   get 'logout', to: 'sessions#destroy'
 
+  # Dashboard
+  get '/dashboard', to: 'users#dashboard'
+
+  # Tags
+  get 'tags/:tag', to: 'playlists#index', as: :tag
+  # Search by Tags and playlist title
+  get '/search', to: 'search#playlist_search'
+
+  resources :subscriptions, :only => [:create, :destroy]
   resources :votes
   resources :requests
   resources :songs
@@ -27,5 +36,8 @@ Rails.application.routes.draw do
   resources :playlists do
     resources :songs
   end
+
+  # 
+
 
 end

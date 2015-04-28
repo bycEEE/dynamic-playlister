@@ -1,0 +1,9 @@
+<h1>Welcome, <%= current_user.name %>!</h1>
+<p>search bar for playlists goes here</p>
+
+<%= form_tag("/search", method: "get") do |f| %>
+  <%= label_tag "Search" %>
+  <%= text_field_tag :keyword %>
+  <%= submit_tag "Search" %>
+<% end %>
+

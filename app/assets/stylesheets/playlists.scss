@@ -19,3 +19,11 @@
 .other_user_comment {
   background: blue;  
 }*/
+
+#tag_cloud {
+  width: 400px;
+  line-height: 1.6em;
+  .s { font_size: 0.8em; }
+  .m { font_size: 1.0em; }
+  .l { font_size: 1.2em; }
+}

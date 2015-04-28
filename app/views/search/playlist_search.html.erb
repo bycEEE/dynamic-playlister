@@ -1,0 +1,8 @@
+<% @playlists.each do |kind_of_result, playlists_array| %>
+  <% unless playlists_array.empty? %>
+    <h2><%= kind_of_result.to_s.split("_").map(&:capitalize).join(' ') %></h2>
+    <% playlists_array.each do |playlist| %>
+      <a href="/playlists/<%= playlist.id %>"><h3><%= playlist.name %></h3></a>
+    <% end %>
+  <% end %>
+<% end %>

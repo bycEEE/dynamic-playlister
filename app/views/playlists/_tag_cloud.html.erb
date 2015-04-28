@@ -1,0 +1,6 @@
+<div class="jumbotron">
+  <h3>Tags:</h3>
+  <% tag_cloud Playlist.tag_counts, %w[s m l] do |tag, css_class| %>
+    <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+  <% end %>
+</div>

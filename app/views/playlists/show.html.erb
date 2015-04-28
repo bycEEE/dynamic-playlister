@@ -65,6 +65,18 @@
       <%= f.submit "Lock Playlist", :id => "lock_playlist" %>
     <% end %>
   <% end %>
+
+  <% if @subscription %>
+    <%= form_for @subscription, method: :delete do |f| %>
+      <%= f.hidden_field :playlist_id, value: @playlist.id %>
+      <%= f.submit "Unsubscribe", :id => "subscribe_to_playlist" %>
+    <% end %>
+  <% else %>
+    <%= form_for Subscription.new do |f| %>
+      <%= f.hidden_field :playlist_id, value: @playlist.id %>
+      <%= f.submit "Subscribe", :id => "unsubscribe_from_playlist" %>
+    <% end %>
+  <% end %>
 </p>
 
 </center>
@@ -73,29 +85,31 @@
   Currently playing nothing
 </div>
 
-<div id="playlist" class="container col-xs-9 col-md-6 col-xs-offset-2 col-md-offset-2">
-  <h1><%= @playlist.name %></h1>
-  <div id="songs-list">
-    <% @playlist.requests.order(:position).each do |request| %>
-      <%= div_for request, class: "rowBox" do %>
-        <div class="voting" id="voting-<%= request.id%>">
-          <h6 id="vote-count-<%= request.id%>"><%= request.vote_count %></h6>
-          <% if !@playlist.locked %>
-            <a class="upvote" id="upvote-<%= request.id%>"> upvote </a>
-            <a class="downvote" id="downvote-<%= request.id%>">downvote</a>
+<div id="main-bar" class="container col-xs-9 col-md-6 col-xs-offset-2 col-md-offset-2">
+  <div id="playlist">
+    <h1><%= @playlist.name %></h1>
+    <div id="songs-list">
+      <% @playlist.requests.order(:position).each do |request| %>
+        <%= div_for request, class: "rowBox" do %>
+          <div class="voting" id="voting-<%= request.id%>">
+            <h6 id="vote-count-<%= request.id%>"><%= request.vote_count %></h6>
+            <% if !@playlist.locked %>
+              <a class="upvote" id="upvote-<%= request.id%>"> upvote </a>
+              <a class="downvote" id="downvote-<%= request.id%>">downvote</a>
             <% if current_user.id == @playlist.host_id %>
               <a class="delete" id="delete-<%= request.id %>">delete</a>
             <% end %>
           <% end %>
-        </div>
-        <%= link_to "#{request.song.name}", request.song, id: "#{request.song.uid}", class: "song-uid" %>
+          </div>
+          <%= link_to "#{request.song.name}", request.song, id: "#{request.song.uid}", class: "song-uid" %>
+        <% end %>
       <% end %>
+    </div>
+    <% if !@playlist.locked %>
+      <h2>What we want:</h2>
+      <%= render 'add_song_form' %>
     <% end %>
   </div>
-  <% if !@playlist.locked %>
-    <h2>What we want:</h2>
-    <%= render 'add_song_form' %>
-  <% end %>
 </div>
 
 <!-- CHAT FEATURE: -->

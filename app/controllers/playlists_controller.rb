@@ -1,6 +1,11 @@
 class PlaylistsController < ApplicationController
   def index
-    @playlists = Playlist.all
+    if params[:tag]
+      @playlists = Playlist.tagged_with(params[:tag])
+      @tag = params[:tag]
+    else
+      @playlists = Playlist.all
+    end
   end
 
   def show
@@ -8,6 +13,7 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.find(params[:id])
     @songs = @playlist.list_all_uid
     @song = Song.new
+    @subscription = Subscription.find_by({:playlist_id => @playlist.id, :subscriber_id => current_user.id })
     # broadcast_information = { :votes => "#{request.vote_count}", :request_id => "#{request.id}" }
     # FayeServer.broadcast("/playlists/#{request.playlist.id}/votes", broadcast_information)
   end
@@ -25,6 +31,10 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def edit
+    @playlist = Playlist.find(params[:id])
+  end
+
   def update
     @playlist = Playlist.find(params[:id])
 
@@ -36,7 +46,7 @@ class PlaylistsController < ApplicationController
 
   private
   def playlist_params
-    params.require(:playlist).permit(:name, :host_id, :locked)
+    params.require(:playlist).permit(:name, :host_id, :locked, :tag_list, :private)
   end
 
 end

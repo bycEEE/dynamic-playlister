@@ -1,4 +1,25 @@
 <div id="chat" class="container col-xs-6 col-md-4">
+
+<%= link_to_if(@playlist.host == current_user, "Edit Playlist Information", { controller: "playlists", action: "edit" })%>
+
+<p>
+  <!-- using raw here. should probably have helper method to escape html -->
+  Tags: <%= raw @playlist.tag_list.map { |tag| link_to tag, tag_path(tag) }.join(", ") %>
+</p>
+
+<div>
+  <% if @playlist.subscribers.count > 0 %>
+    <h3>Playlist subscribers:</h3>
+    <% @playlist.subscribers.each do |subscriber| %>  
+        <img src="<%= subscriber.profile_image %>" alt="<%= subscriber.name %>'s profile icon."> 
+      </a> 
+    <% end %>
+  <% else %>
+    <h3>This playlist has no subscribers.</h3>
+  <% end %>
+</div>
+
+
   <h1>Chat:</h1>
   <div id="message-div">
     <table id="message-table" class="table">
