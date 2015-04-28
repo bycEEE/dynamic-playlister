@@ -1,7 +1,31 @@
+ // Song actions
+ function songActions() {
+  $(".upvote").click(function(event) {
+    var requestId = $(this).attr("id");
+    requestId = requestId.replace("upvote-", "");
+    $.post("/votes/upvote", {"request_id": requestId}, function(data) {  
+      });
+  });
+
+  $(".downvote").click(function(event) {
+    var requestId = $(this).attr("id");
+    requestId = requestId.replace("downvote-", "");
+    $.post("/votes/downvote", {"request_id": requestId}, function(data) {  
+      });
+  });
+
+  $(".delete").click(function(event) {
+    var requestId = $(this).attr("id");
+    requestId = requestId.replace("delete-", "");
+    $.post("/requests/destroy", {"request_id": requestId}, {_method:'delete'}, null, "script");
+  });
+}
+
 $(function() {
   var idRegex = /http:\/\/localhost:3000\/playlists\/(\d+)/;
   var match = idRegex.exec(location.href);
   songsArray = [];
+  songActions();
 
   $("#search_term_or_url").autocomplete({
     minLength: 3,
@@ -33,25 +57,6 @@ $(function() {
     }
   });
 
-  $(".upvote").click(function(event) {
-    var requestId = $(this).attr("id");
-    requestId = requestId.replace("upvote-", "");
-    $.post("/votes/upvote", {"request_id": requestId}, function(data) {  
-      });
-  });
-
-  $(".downvote").click(function(event) {
-    var requestId = $(this).attr("id");
-    requestId = requestId.replace("downvote-", "");
-    $.post("/votes/downvote", {"request_id": requestId}, function(data) {  
-      });
-  });
-
-  $(".delete").click(function(event) {
-    var requestId = $(this).attr("id");
-    requestId = requestId.replace("delete-", "");
-    $.post("/requests/destroy", {"request_id": requestId}, {_method:'delete'}, null, "script");
-  });
 
   $("#intelligent-add-song").click(function(event) {
       event.preventDefault();
@@ -61,12 +66,10 @@ $(function() {
 
   $("#chat_send").click(function(event) {
       event.preventDefault();
-      // $.post("/playlist//chat_messages", $("form").serialize(), function(data) { 
       $.post(location.href + "/chat_messages", $("#chat-message-form").serialize(), function(data) {  
       });
       $("#chat_message_content").val("");
   });
-
   // need to make now playing div that is not sortable
   // logic relies on songs-list song-uid to exist. cannot delete elements
   $("#songs-list").sortable({
