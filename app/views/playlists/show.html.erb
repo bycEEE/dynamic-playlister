@@ -13,9 +13,9 @@
       ];
     }
 
-    var player, currentVideoId = 0;
-    var songsPlayed = 0;
+    var player, currentVideoIndex = 0;
     var whatIsPlaying = 0;
+    var songsPlayed = [];
 
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
@@ -29,20 +29,20 @@
     }
 
     function onPlayerReady(event) {
-        event.target.loadVideoById(videoIDs[currentVideoId]);
+        event.target.loadVideoById(videoIDs[currentVideoIndex]);
     }
 
     function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.ENDED) {
-          $('#songs-list').find("#" + videoIDs[currentVideoId]).parent().closest('div').hide();
-          songsPlayed++;
-          currentVideoId++;
-            if (currentVideoId < videoIDs.length) {
-               player.loadVideoById(videoIDs[currentVideoId]);
+          $('#songs-list').find("#" + videoIDs[currentVideoIndex]).parent().closest('div').fadeTo(500,0.2);
+          currentVideoIndex++;
+          videoIDs.push(songsPlayed);
+            if (currentVideoIndex < videoIDs.length) {
+               player.loadVideoById(videoIDs[currentVideoIndex]);
             }
         }
         if (event.data == YT.PlayerState.PLAYING) {
-          whatIsPlaying = videoIDs[currentVideoId]
+          whatIsPlaying = player.getVideoData()['video_id']
           document.getElementById('currently_playing').innerHTML = 'Currently playing: ' + player.getVideoData().title;
         }
     }

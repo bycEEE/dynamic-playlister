@@ -1,34 +1,35 @@
 $(function() {
   var idRegex = /http:\/\/localhost:3000\/playlists\/(\d+)/;
   var match = idRegex.exec(location.href);
+  songsArray = [];
 
-   $("#search_term_or_url").autocomplete({
+  $("#search_term_or_url").autocomplete({
     minLength: 3,
     source: "/search_suggestions",
     select: function(event, ui) {
     $('#search_term_or_url').val(ui.item.value);
     }
-   });
+  });
 
   $( "#skip-song" ).on( "click", function(event) {
     event.preventDefault();
     event.stopPropagation();
     if (player.getPlayerState() == 0) { // ended
-      $('#songs-list').find("#" + whatIsPlaying).parent().closest('div').hide();
-      songsPlayed++;
-      player.loadVideoById(videoIDs[currentVideoId]);
+      $('#songs-list').find("#" + whatIsPlaying).parent().closest('div').fadeTo(500,0.2);
+      songsPlayed.push(whatIsPlaying);
+      player.loadVideoById(videoIDs[currentVideoIndex]);
     }
     if (player.getPlayerState() == 1) { // playing
-      $('#songs-list').find("#" + whatIsPlaying).parent().closest('div').hide();
-      currentVideoId++;
-      songsPlayed++;
-      player.loadVideoById(videoIDs[currentVideoId]);
+      $('#songs-list').find("#" + whatIsPlaying).parent().closest('div').fadeTo(500,0.2);
+      songsPlayed.push(whatIsPlaying);
+      currentVideoIndex++;
+      player.loadVideoById(videoIDs[currentVideoIndex]);
     }
     if (player.getPlayerState() == 2) { // paused
-      $('#songs-list').find("#" + videoIDs[currentVideoId]).parent().closest('div').hide();
-      currentVideoId++;
-      songsPlayed++;
-      player.loadVideoById(videoIDs[currentVideoId]);
+      $('#songs-list').find("#" + videoIDs[currentVideoIndex]).parent().closest('div').fadeTo(500,0.2);
+      songsPlayed.push(whatIsPlaying);
+      currentVideoIndex++;
+      player.loadVideoById(videoIDs[currentVideoIndex]);
     }
   });
 
@@ -73,11 +74,26 @@ $(function() {
       connectWith: ".connectedSortable",
       stop: function(event, ui) {
         videoIDs.length = 0;
-        currentVideoId = -1 + songsPlayed;
+        songsArray.length = 0;
+        // $("#songs-list").find("#" + player.getVideoData()['video_id']).prepend("<p>PLAYLIST IS HERE</p>")
         $("#songs-list").find(".song-uid").each(function(){ 
           videoIDs.push(this.id);
+          var songsHash = {};
+          songsHash["uid"] = this.id;
+          songsHash["id"] = this.parentElement.id.split("_")[1];
+          songsHash["url_id"] = $(this).attr("href").split("/")[2];
+          songsHash["title"] = this.text;
+          songsHash["votes"] = $("#vote-count-" + songsHash["id"]).text();
+          if(this.parentElement.style.cssText.match(/^opacity/)) {
+            songsHash["played"] = 1;
+          } else {
+            songsHash["played"] = 0;
+          }
+          songsArray.push(songsHash);
         });
-        $.post("/requests/arrange", {"video_ids": videoIDs, "playlist_id": match[1] }, function(data) {  
+        videoIDs = $(videoIDs).not(songsPlayed).get();
+        currentVideoIndex = videoIDs.indexOf(whatIsPlaying);
+        $.post("/requests/arrange", {"video_ids": videoIDs, "playlist_id": match[1], "songs_array": songsArray }, function(data) {  
         });
       }
   });
@@ -85,7 +101,7 @@ $(function() {
   $(".song-uid").click(function(event) {
     event.preventDefault();
     player.loadVideoById(videoIDs[$.inArray(this.id, videoIDs)]);
-    currentVideoId = $.inArray(this.id, videoIDs)
+    currentVideoIndex = $.inArray(this.id, videoIDs)
   });
 
 });
