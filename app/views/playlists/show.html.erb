@@ -67,9 +67,13 @@
   <% end %>
 
   <% if @subscription %>
-    <%= form_for @subscription, method: :delete do |f| %>
-      <%= f.hidden_field :playlist_id, value: @playlist.id %>
-      <%= f.submit "Unsubscribe", :id => "subscribe_to_playlist" %>
+    <% if @subscription.approved == false %>
+      <h4>Subscription Pending</h4>
+    <% else %>
+      <%= form_for @subscription, method: :delete do |f| %>
+        <%= f.hidden_field :playlist_id, value: @playlist.id %>
+        <%= f.submit "Unsubscribe", :id => "subscribe_to_playlist" %>
+      <% end %>
     <% end %>
   <% else %>
     <%= form_for Subscription.new do |f| %>

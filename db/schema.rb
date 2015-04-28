@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428150014) do
+ActiveRecord::Schema.define(version: 20150428180428) do
 
   create_table "chat_messages", force: :cascade do |t|
     t.string   "content"
@@ -49,8 +49,9 @@ ActiveRecord::Schema.define(version: 20150428150014) do
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "subscriber_id"
     t.integer  "playlist_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "approved",      default: false
   end
 
   create_table "taggings", force: :cascade do |t|

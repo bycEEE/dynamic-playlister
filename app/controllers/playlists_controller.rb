@@ -14,6 +14,9 @@ class PlaylistsController < ApplicationController
     @songs = @playlist.list_all_uid
     @song = Song.new
     @subscription = Subscription.find_by({:playlist_id => @playlist.id, :subscriber_id => current_user.id })
+    @approved_subscriptions = @playlist.subscriptions.where(:approved => true) 
+    @unapproved_subscriptions = @playlist.subscriptions.where(:approved => false) 
+    # binding.pry
     # broadcast_information = { :votes => "#{request.vote_count}", :request_id => "#{request.id}" }
     # FayeServer.broadcast("/playlists/#{request.playlist.id}/votes", broadcast_information)
   end

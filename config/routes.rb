@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   # Search by Tags and playlist title
   get '/search', to: 'search#playlist_search'
 
-  resources :subscriptions, :only => [:create, :destroy]
+  resources :subscriptions, :only => [:create, :destroy, :update]
   resources :votes
   resources :requests
   resources :songs
