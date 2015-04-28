@@ -7,6 +7,9 @@ class Playlist < ActiveRecord::Base
   has_many :subscriptions
   has_many :subscribers, through: :subscriptions
 
+  has_many :likes
+  has_many :people_who_liked_it, :through => :likes, :source => :user
+
   validates_uniqueness_of :host_id, :scope => "name"
   #implement dependent destroy for requests
 

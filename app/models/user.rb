@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
   has_many :subscriptions
   has_many :playlists, :through => :subscriptions
 
+  has_many :likes
+  has_many :liked_playlists, :through => :likes, :source => :playlist
+
   def twitter
     @client = Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV['TWITTER_KEY']
