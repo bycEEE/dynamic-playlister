@@ -58,6 +58,18 @@
       <%= f.submit "Lock Playlist", :id => "lock_playlist" %>
     <% end %>
   <% end %>
+
+  <% if @subscription %>
+    <%= form_for @subscription, method: :delete do |f| %>
+      <%= f.hidden_field :playlist_id, value: @playlist.id %>
+      <%= f.submit "Unsubscribe", :id => "subscribe_to_playlist" %>
+    <% end %>
+  <% else %>
+    <%= form_for Subscription.new do |f| %>
+      <%= f.hidden_field :playlist_id, value: @playlist.id %>
+      <%= f.submit "Subscribe", :id => "unsubscribe_from_playlist" %>
+    <% end %>
+  <% end %>
 </p>
 
 </center>

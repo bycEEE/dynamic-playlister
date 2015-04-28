@@ -2,8 +2,10 @@ class Playlist < ActiveRecord::Base
   has_many :requests
   has_many :songs, through: :requests
   belongs_to :host, :class_name => "User"
-
   has_many :chat_messages
+
+  has_many :subscriptions
+  has_many :subscribers, through: :subscriptions
 
   validates_uniqueness_of :host_id, :scope => "name"
   #implement dependent destroy for requests

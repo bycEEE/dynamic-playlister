@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   has_many :songs, through: :requests, :foreign_key => 'listener_id'
   has_many :chat_messages
   has_many :votes
+  
+  has_many :subscriptions
+  has_many :playlists, :through => :subscriptions
 
   def twitter
     @client = Twitter::REST::Client.new do |config|

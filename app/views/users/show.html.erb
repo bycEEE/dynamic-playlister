@@ -1,3 +1,10 @@
+<a href="<%= @user.profile_url %>"><img src="<%= @user.profile_image %>" alt="<%= @user.name %>'s profile picture"></a>
+<p>
+  <%= @user.name %><br>
+  @<%= @user.nickname %>
+</p>
+
+
 <h1><%= link_to "New Playlist", new_playlist_path %></h1>
 <h1>Playlists you host:</h1>
 <% current_user.host_playlists.each do |playlist| %>

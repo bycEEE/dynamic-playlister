@@ -7,6 +7,18 @@
   Tags: <%= raw @playlist.tag_list.map { |tag| link_to tag, tag_path(tag) }.join(", ") %>
 </p>
 
+<div>
+  <% if @playlist.subscribers.count > 0 %>
+    <h3>Playlist subscribers:</h3>
+    <% @playlist.subscribers.each do |subscriber| %>  
+        <img src="<%= subscriber.profile_image %>" alt="<%= subscriber.name %>'s profile icon."> 
+      </a> 
+    <% end %>
+  <% else %>
+    <h3>This playlist has no subscribers.</h3>
+  <% end %>
+</div>
+
 
   <h1>Chat:</h1>
   <div id="message-div">
