@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :likes
+
   root to: 'static_pages#index'
 
   get '/search_suggestions', to: 'search#autocomplete'

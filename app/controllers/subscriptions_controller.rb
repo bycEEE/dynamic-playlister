@@ -6,12 +6,17 @@ class SubscriptionsController < ApplicationController
 
   def create
     playlist = Playlist.find(params[:subscription][:playlist_id])
-    @subscription = Subscription.find_or_create_by( {
-        :playlist_id => params[:subscription][:playlist_id],
-        :subscriber_id => current_user.id,
-        :approved => false
-      } )
-    redirect_to playlist
+    if playlist.host != current_user
+      @subscription = Subscription.find_or_create_by( {
+          :playlist_id => params[:subscription][:playlist_id],
+          :subscriber_id => current_user.id,
+          :approved => false
+        } )
+    else
+      flash[:notice] = "As a host, you cannot subscribe to your own playlist."
+      # redirect_to playlist, :notice => "As a host, you cannot subscribe to your own playlist"
+    end
+      redirect_to playlist
     # redirect_to "playlists/#{params[:subscription][:playlist_id]}"
     # binding.pry
   end
