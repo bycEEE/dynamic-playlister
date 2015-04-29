@@ -12,7 +12,7 @@ $(function() {
   // add songs
   faye.subscribe("/playlists/" + match[1] + "/add", function(data) {
     videoIDs.push(data.uid);
-    var string = "<div class=\"request rowBox ui-sortable-handle\" id=\"request_" + data.request_id + "\">"
+    var string = "<div class=\"request row ui-sortable-handle\" id=\"request_" + data.request_id + "\">"
                                   + "<div class=\"voting\" id=\"voting-" + data.request_id + "\">" 
                                   + "<h6 id=\"vote-count-" + data.request_id + "\">" + data.vote_count + "</h6>"
                                   + "<a class=\"upvote\" id=\"upvote-" + data.request_id + "\"> upvote </a>"
@@ -49,7 +49,7 @@ $(function() {
 
     $.each(data.songs_array, function(index, hash) {
       if(hash.played == 1) {
-        string += "<div class=\"request rowBox ui-sortable-handle\" id=\"request_" + hash.id + "\" style=\"opacity: 0.2;\">"
+        string += "<div class=\"request row ui-sortable-handle\" id=\"request_" + hash.id + "\" style=\"opacity: 0.2;\">"
                                     + "<div class=\"voting\" id=\"voting-" + hash.id + "\">" 
                                     + "<h6 id=\"vote-count-" + hash.id + "\">" + hash.votes + "</h6>"
                                     + "<a class=\"upvote\" id=\"upvote-" + hash.id + "\"> upvote </a>"
@@ -63,7 +63,7 @@ $(function() {
                                     + "<a id="+hash.uid+" class=\"song-uid\" href=\"/songs/" + hash.url_id + "\">" + hash.title + "</a>"
                                     + "</div>";
       } else {
-        string += "<div class=\"request rowBox ui-sortable-handle\" id=\"request_" + hash.id + "\">"
+        string += "<div class=\"request row ui-sortable-handle\" id=\"request_" + hash.id + "\">"
                             + "<div class=\"voting\" id=\"voting-" + hash.id + "\">" 
                             + "<h6 id=\"vote-count-" + hash.id + "\">" + hash.votes + "</h6>"
                             + "<a class=\"upvote\" id=\"upvote-" + hash.id + "\"> upvote </a>"

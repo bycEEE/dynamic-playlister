@@ -17,4 +17,5 @@
 //= require_tree ../../../vendor/assets/javascripts/.
 //= require playlists
 //= require broadcast
+//= require player
 //= require_tree .

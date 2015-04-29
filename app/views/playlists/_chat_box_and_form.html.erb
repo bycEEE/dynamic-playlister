@@ -1,18 +1,8 @@
-<div id="chat" class="container col-xs-6 col-md-4">
-
-<%= link_to_if(@playlist.host == current_user, "Edit Playlist Information", { controller: "playlists", action: "edit" })%>
-
-<p>
-  <!-- using raw here. should probably have helper method to escape html -->
-  Tags: <%= raw @playlist.tag_list.map { |tag| link_to tag, tag_path(tag) }.join(", ") %>
-</p>
-
-
-
+<div id="chat">
   <!-- actual chat box -->
   <h1>Chat:</h1>
   <div id="message-div">
-    <table id="message-table" class="table">
+    <table id="message-table" class="table" style="width:100%">
       <% @playlist.chat_messages.each do |message| %>
         <% if message.user_id == current_user.id %>
           <tr class="current_user_comment">

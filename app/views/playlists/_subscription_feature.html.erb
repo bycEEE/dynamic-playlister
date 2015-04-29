@@ -1,11 +1,13 @@
-<div id="sunscription-box">
-  <% if @unapproved_subscriptions.count > 0 %>
-    <h3>Unapproved subscribers:</h3>
-    <% @unapproved_subscriptions.each do |unapproved_subscription| %>  
-      <img src="<%= unapproved_subscription.subscriber.profile_image %>" alt="<%= unapproved_subscription.subscriber.name %>'s profile icon.">
-      <%= form_for unapproved_subscription do |f| %>
-        <%= f.hidden_field :subscription_id, :value => unapproved_subscription.id %>
-        <%= f.submit "Approve #{unapproved_subscription.subscriber.name}" %>
+<div id="subscription-box">
+  <% if current_user.id == @playlist.host_id %>
+    <% if @unapproved_subscriptions.count > 0 %>
+      <h3>Unapproved subscribers:</h3>
+      <% @unapproved_subscriptions.each do |unapproved_subscription| %>  
+        <img src="<%= unapproved_subscription.subscriber.profile_image %>" alt="<%= unapproved_subscription.subscriber.name %>'s profile icon.">
+        <%= form_for unapproved_subscription do |f| %>
+          <%= f.hidden_field :subscription_id, :value => unapproved_subscription.id %>
+          <%= f.submit "Approve #{unapproved_subscription.subscriber.name}" %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>
