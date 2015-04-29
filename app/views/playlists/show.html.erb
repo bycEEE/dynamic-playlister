@@ -1,4 +1,4 @@
-<script>var current_user_is_host = <%= current_user.id == @playlist.host_id %>;</script>
+<script>current_user_is_host = <%= current_user.id == @playlist.host_id %>;</script>
 <!-- <center><div id="player"></div></center> -->
 <script src="http://www.youtube.com/iframe_api"></script>
 <script>
@@ -100,9 +100,9 @@
                   </a>
                 <% end %>
 
-                <p>
-                <%= link_to "#{request.song.name}", request.song, id: "#{request.song.uid}", class: "song-uid" %>
-                </p>
+                <%= image_tag("https://img.youtube.com/vi/#{request.song.uid}/default.jpg", height: '60', width: '80', class: "youtube_thumbnail") %>
+                  <%= link_to "#{request.song.name}", request.song, id: "#{request.song.uid}", class: "song-uid" %>
+                  <span><%= "Requested by: #{request.listener.name} "%></span>
               </div>
 
             <% end %>

@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :chat_messages
   has_many :votes
   
-  has_many :subscriptions
+  has_many :subscriptions, :foreign_key => 'subscriber_id'
   has_many :playlists, :through => :subscriptions
 
   has_many :likes

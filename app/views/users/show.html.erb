@@ -1,21 +1,55 @@
-  <img src="<%= @user.profile_image.gsub("_normal", "").gsub("http", "https") %>" alt="<%= @user.name %>'s profile picture">
-<p>
-  <%= @user.name %><br>
-  <a href="<%= @user.profile_url %>">
-    @<%= @user.nickname %>
-  </a>
-</p>
+<div class="row">
+  <div class="col-md-4">
+    <img src="<%= @user.profile_image.gsub("_normal", "").gsub("http", "https") %>" alt="<%= @user.name %>'s profile picture">
+  </div>
 
+  <div class="col-md-8">
+    <%= @user.name %><br>
+    <a href="<%= @user.profile_url %>">@<%= @user.nickname %></a>
+    <p>
+      <% if @user.description %>
+        <%= @user.description %><br>
+        <h6><a id="update-description-link" href="#">Update description</a></h6>
+        <%= render 'users/update_description' %>
+      <% else %>
+        <h6>You do not have a description. <a id="update-description-link" href="#">Would you like to add one?</a></h6>
+        <%= render 'users/update_description' %>
+      <% end %>
+    </p>
+  </div>
+</div>
 
 <h1><%= link_to "New Playlist", new_playlist_path %></h1>
-<h1>Playlists you host:</h1>
-<% current_user.host_playlists.each do |playlist| %>
-  <%= link_to "#{playlist.name}", playlist_path(playlist) %><br>
-<% end %>
 
-<h1>Playlists you follow:</h1>
-<% current_user.listener_playlists.each do |playlist| %>
-  <% unless current_user.host_playlists.include?(playlist) %>
-    <%= link_to "#{playlist.name}", playlist_path(playlist) %><br>
+<div class="col-md-4">
+  <% if current_user.host_playlists.any? %>
+    <h4>Playlists you host:</h4>
+    <% current_user.host_playlists.each do |playlist| %>
+      <%= link_to "#{playlist.name}", playlist_path(playlist) %><br>
+    <% end %>
+  <% else %>
+    <h4>You currently have no playlists, <%= link_to "create one now", new_playlist_path %>.</h4>
   <% end %>
-<% end %>
+</div>
+
+<div class="col-md-4">
+  <% if current_user.subscriptions.any? %>
+    <h4>Playlists you follow:</h4>
+    <% current_user.subscriptions.each do |playlist| %>
+      <%= link_to "#{playlist.name}", playlist_path(playlist) %><br>
+    <% end %>
+    <% else %>
+    <h4>You are currently not following any playlists.</h4>
+  <% end %>
+</div>
+
+<div class="col-md-4">
+  <% if current_user.liked_playlists.any? %>
+    <h4>Playlists you like:</h4>
+    <% current_user.subscriptions.each do |playlist| %>
+      <%= link_to "#{playlist.name}", playlist_path(playlist) %><br>
+    <% end %>
+    <% else %>
+    <h4>You currently do not like any playlists.</h4>
+  <% end %>
+</div>

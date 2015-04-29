@@ -16,6 +16,7 @@
 //= require bootstrap
 //= require_tree ../../../vendor/assets/javascripts/.
 //= require playlists
+//= require users
 //= require broadcast
 //= require player
 //= require_tree .

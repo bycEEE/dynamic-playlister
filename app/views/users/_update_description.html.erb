@@ -1,0 +1,7 @@
+<div id="update-description-form">
+  <%= form_for(@user, :url => { :action => "update" }) do |f| %>
+    <%= f.label "Enter description:" %><br>
+    <%= f.text_area :description, :size => "40x5" %><br>
+    <%= f.submit "Update description" %>
+  <% end %>
+</div>

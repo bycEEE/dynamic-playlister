@@ -8,11 +8,13 @@
   <%= analytics_init if Rails.env.production? %>
 </head>
 <body>
-<%= render 'layouts/header' %>
+  <script>var current_user_is_host = false;</script>
+  <%= render 'layouts/header' %>
   <% if flash[:notice] %>
     <center><div class="notice"><%= flash[:notice] %></div></center>
   <% end %>
-<%= yield %>
-
+  <div class="container">
+    <%= yield %>
+  </div>
 </body>
 </html>
