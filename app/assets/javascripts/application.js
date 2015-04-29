@@ -18,4 +18,5 @@
 //= require playlists
 //= require users
 //= require broadcast
+//= require player
 //= require_tree .

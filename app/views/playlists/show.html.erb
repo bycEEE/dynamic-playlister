@@ -1,8 +1,6 @@
 <script>current_user_is_host = <%= current_user.id == @playlist.host_id %>;</script>
-
-<center><div id="player"></div></center>
+<!-- <center><div id="player"></div></center> -->
 <script src="http://www.youtube.com/iframe_api"></script>
-
 <script>
     if (<%= @songs.empty? %>) {
       var videoIDs = [
@@ -21,8 +19,8 @@
 
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
-            height: '350',
-            width: '425',
+            height: '450',
+            width: '100%',
             events: {
                 'onReady': onPlayerReady,
                 'onStateChange': onPlayerStateChange
@@ -48,75 +46,84 @@
           document.getElementById('currently_playing').innerHTML = 'Currently playing: ' + player.getVideoData().title;
         }
     }
+  
 </script>
-<center>
 
-<%= form_tag do %>
-  <%= submit_tag("skip", :id => "skip-song") %>
-<% end %>
+<div class="container">    
 
-<p>
-  <% if @playlist.locked %>
-    <%= form_for @playlist, :url => {:controller => :playlists, action: :update} do |f| %>
-      <%= f.hidden_field :locked, value: false %>
-      <%= f.submit "Unlock Playlist", :id => "unlock_playlist" %>
-    <% end %>
-  <% else %>
-    <%= form_for @playlist, :url => {:controller => :playlists, action: :update} do |f| %>
-      <%= f.hidden_field :locked, value: true %>
-      <%= f.submit "Lock Playlist", :id => "lock_playlist" %>
-    <% end %>
-  <% end %>
+  <div class="row">
+    <div id="playlist-header" class="col-xs-18 col-md-12">
+      <h1><%= @playlist.name %></h1>
+      <%= link_to_if(@playlist.host == current_user, "Edit Playlist Information", { controller: "playlists", action: "edit" })%>
+      <div style="float:right">
+        <%= render 'host_panel' %>
+      </div>
+    </div>
+  </div>
 
-  <% if @subscription %>
-    <% if @subscription.approved == false %>
-      <h4>Subscription Pending</h4>
-    <% else %>
-      <%= form_for @subscription, method: :delete do |f| %>
-        <%= f.hidden_field :playlist_id, value: @playlist.id %>
-        <%= f.submit "Unsubscribe", :id => "subscribe_to_playlist" %>
-      <% end %>
-    <% end %>
-  <% else %>
-    <%= form_for Subscription.new do |f| %>
-      <%= f.hidden_field :playlist_id, value: @playlist.id %>
-      <%= f.submit "Subscribe", :id => "unsubscribe_from_playlist" %>
-    <% end %>
-  <% end %>
-</p>
+  <div class="row">
+    <div id="main-bar" class="col-xs-12 col-md-8">
 
-</center>
+      <%= render 'tags_playlists_show' %>
+      
+      <div style="background-color:black">
+        <center><div id="player"></div></center>
+      </div>
 
-<div id="currently_playing">
-  Currently playing nothing
-</div>
+      <div id="currently_playing">
+        Currently playing nothing
+      </div>
+      <%= render 'show_skip_button' %>
 
-<div id="main-bar" class="container col-xs-9 col-md-6 col-xs-offset-2 col-md-offset-2">
-  <div id="playlist">
-    <h1><%= @playlist.name %></h1>
-    <div id="songs-list">
-      <% @playlist.requests.order(:position).each do |request| %>
-        <%= div_for request, class: "rowBox" do %>
-          <div class="voting" id="voting-<%= request.id%>">
-            <h6 id="vote-count-<%= request.id%>"><%= request.vote_count %></h6>
-            <% if !@playlist.locked %>
-              <a class="upvote" id="upvote-<%= request.id%>"> upvote </a>
-              <a class="downvote" id="downvote-<%= request.id%>">downvote</a>
-            <% if current_user.id == @playlist.host_id %>
-              <a class="delete" id="delete-<%= request.id %>">delete</a>
+      <div id="playlist">
+        <div id="songs-list">
+          <% @playlist.requests.order(:position).each do |request| %>
+            <%= div_for request, class: "row" do %>
+              <div class="col-md-1 col-xs-1 voting" id="voting-<%= request.id%>">
+                <% if !@playlist.locked %>
+                  <a class="upvote" id="upvote-<%= request.id%>">
+                    <span class="glyphicon glyphicon-chevron-up"></span>
+                  </a>
+                <% end %>
+                <h6 id="vote-count-<%= request.id%>"><%= request.vote_count %></h6>
+                <% if !@playlist.locked %>
+                  <a class="downvote" id="downvote-<%= request.id%>">
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                  </a>
+                <% end %>
+              </div>
+
+              <div class="col-md-11 col-xs-17 song-info">
+                <% if current_user.id == @playlist.host_id %>
+                  <a class="delete" id="delete-<%= request.id %>">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </a>
+                <% end %>
+
+                <p>
+                <%= link_to "#{request.song.name}", request.song, id: "#{request.song.uid}", class: "song-uid" %>
+                </p>
+              </div>
+
             <% end %>
           <% end %>
-          </div>
-          <%= link_to "#{request.song.name}", request.song, id: "#{request.song.uid}", class: "song-uid" %>
+        </div>
+        <% if !@playlist.locked %>
+          <h2>Add Song:</h2>
+          <%= render 'add_song_form' %>
         <% end %>
+      </div>
+    </div>
+
+    <!-- CHAT FEATURE: -->
+    <div id="playlist-side-bar" class="col-xs-6 col-md-4">
+      <%= render 'like_button' %>
+      <%= render 'chat_box_and_form' %>
+      <% if current_user.id == @playlist.host_id %>
+        <%= render 'subscription_feature' %>
+        <%= render 'like_user_box' %>
       <% end %>
     </div>
-    <% if !@playlist.locked %>
-      <h2>What we want:</h2>
-      <%= render 'add_song_form' %>
-    <% end %>
-  </div>
-</div>
 
-<!-- CHAT FEATURE: -->
-<%= render 'chat_box_and_form' %>
+  </div><!-- row -->
+</div><!-- container -->

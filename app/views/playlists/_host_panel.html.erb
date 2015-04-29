@@ -1,0 +1,12 @@
+<!-- lock -->
+<% if @playlist.locked %>
+  <%= form_for @playlist, :url => {:controller => :playlists, action: :update} do |f| %>
+    <%= f.hidden_field :locked, value: false %>
+    <%= f.submit "Unlock Playlist", :id => "unlock_playlist", :class => "btn btn-warning" %>
+  <% end %>
+<% else %>
+  <%= form_for @playlist, :url => {:controller => :playlists, action: :update} do |f| %>
+    <%= f.hidden_field :locked, value: true %>
+    <%= f.submit "Lock Playlist", :id => "lock_playlist", :class => "btn btn-warning" %>
+  <% end %>
+<% end %>

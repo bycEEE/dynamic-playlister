@@ -1,7 +1,0 @@
-<%= form_for Song.new do |f| %>
-	<%= f.hidden_field :user_id, :value => current_user.id %>
-	<%= f.hidden_field :playlist_id, :value => params["id"] %>
-	<%= f.label "Enter Youtube Url: " %>
-	<%= f.text_field :url %>
-	<%= f.submit :id => "add-song" %>
-<% end %>

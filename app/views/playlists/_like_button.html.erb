@@ -1,0 +1,14 @@
+  <!-- form -->
+<% if @like %>
+  <%= form_for @like, :method => :delete do |f| %>   
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :playlist_id, :value => @playlist.id %>
+    <%= f.submit "Unlike" %>
+  <% end %>
+<% else %>
+  <%= form_for Like.new do |f| %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :playlist_id, :value => @playlist.id %>
+    <%= f.submit "Like" %>
+  <% end %>
+<% end %>

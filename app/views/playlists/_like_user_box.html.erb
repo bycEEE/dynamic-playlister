@@ -1,0 +1,6 @@
+<% if @playlist.people_who_liked_it.count > 0 %>
+  <h3>Likers: </h3>
+  <% @playlist.people_who_liked_it.each do |liker| %>
+    <img src="<%= liker.profile_image %>" alt="<%= liker.name %>'s profile icon.">
+  <% end %>
+<% end %>

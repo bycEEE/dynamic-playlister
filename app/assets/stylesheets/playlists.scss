@@ -27,3 +27,28 @@
   .m { font_size: 1.0em; }
   .l { font_size: 1.2em; }
 }
+
+.request {
+  border: 1px solid black;
+}
+
+.voting {
+  text-align: center;
+}
+
+.upvote {
+  margin: auto;
+}
+
+.downvote {
+  margin: auto;
+}
+
+.song-info {
+  height: 5em;
+  line-height: 5em;
+}
+
+.delete {
+  float: right;
+}
