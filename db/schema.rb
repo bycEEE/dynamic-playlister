@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428205012) do
+ActiveRecord::Schema.define(version: 20150429182914) do
 
   create_table "chat_messages", force: :cascade do |t|
     t.string   "content"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20150428205012) do
     t.string   "profile_url"
     t.string   "token"
     t.string   "secret"
+    t.text     "description"
   end
 
   create_table "votes", force: :cascade do |t|

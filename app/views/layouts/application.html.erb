@@ -12,7 +12,10 @@
   <% if flash[:notice] %>
     <center><div class="notice"><%= flash[:notice] %></div></center>
   <% end %>
-<%= yield %>
+  <div class="container">
+    <%= yield %>
+  </div>
 
+  <script>var current_user_is_host = false;</script>
 </body>
 </html>
