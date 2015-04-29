@@ -1,0 +1,22 @@
+    <!-- form -->
+  <% if @like %>
+    <%= form_for @like, :method => :delete do |f| %>   
+      <%= f.hidden_field :user_id, :value => current_user.id %>
+      <%= f.hidden_field :playlist_id, :value => @playlist.id %>
+      <%= f.submit "Unlike" %>
+    <% end %>
+  <% else %>
+    <%= form_for Like.new do |f| %>
+      <%= f.hidden_field :user_id, :value => current_user.id %>
+      <%= f.hidden_field :playlist_id, :value => @playlist.id %>
+      <%= f.submit "Like" %>
+    <% end %>
+  <% end %>
+  
+    <!-- likers -->
+  <% if @playlist.people_who_liked_it.count > 0 %>
+    <h3>Likers: </h3>
+    <% @playlist.people_who_liked_it.each do |liker| %>
+      <img src="<%= liker.profile_image %>" alt="<%= liker.name %>'s profile icon.">
+    <% end %>
+  <% end %>

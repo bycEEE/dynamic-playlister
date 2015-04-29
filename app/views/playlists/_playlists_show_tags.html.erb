@@ -1,0 +1,4 @@
+<p>
+  <!-- using raw here. should probably have helper method to escape html -->
+  Tags: <%= raw @playlist.tag_list.map { |tag| link_to tag, tag_path(tag) }.join(", ") %>
+</p>
