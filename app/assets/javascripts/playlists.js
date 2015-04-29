@@ -70,36 +70,36 @@ $(function() {
       });
       $("#chat_message_content").val("");
   });
-  // need to make now playing div that is not sortable
-  // logic relies on songs-list song-uid to exist. cannot delete elements
-  $("#songs-list").sortable({
-      // items: 'div:not(:first)',
-      connectWith: ".connectedSortable",
-      stop: function(event, ui) {
-        videoIDs.length = 0;
-        songsArray.length = 0;
-        // $("#songs-list").find("#" + player.getVideoData()['video_id']).prepend("<p>PLAYLIST IS HERE</p>")
-        $("#songs-list").find(".song-uid").each(function(){ 
-          videoIDs.push(this.id);
-          var songsHash = {};
-          songsHash["uid"] = this.id;
-          songsHash["id"] = this.parentElement.id.split("_")[1];
-          songsHash["url_id"] = $(this).attr("href").split("/")[2];
-          songsHash["title"] = this.text;
-          songsHash["votes"] = $("#vote-count-" + songsHash["id"]).text();
-          if(this.parentElement.style.cssText.match(/^opacity/)) {
-            songsHash["played"] = 1;
-          } else {
-            songsHash["played"] = 0;
-          }
-          songsArray.push(songsHash);
-        });
-        videoIDs = $(videoIDs).not(songsPlayed).get();
-        currentVideoIndex = videoIDs.indexOf(whatIsPlaying);
-        $.post("/requests/arrange", {"video_ids": videoIDs, "playlist_id": match[1], "songs_array": songsArray }, function(data) {  
-        });
-      }
-  });
+
+  if(current_user_is_host == true) {
+    $("#songs-list").sortable({
+        connectWith: ".connectedSortable",
+        stop: function(event, ui) {
+          videoIDs.length = 0;
+          songsArray.length = 0;
+
+          $("#songs-list").find(".song-uid").each(function(){ 
+            videoIDs.push(this.id);
+            var songsHash = {};
+            songsHash["uid"] = this.id;
+            songsHash["id"] = this.parentElement.id.split("_")[1];
+            songsHash["url_id"] = $(this).attr("href").split("/")[2];
+            songsHash["title"] = this.text;
+            songsHash["votes"] = $("#vote-count-" + songsHash["id"]).text();
+            if(this.parentElement.style.cssText.match(/^opacity/)) {
+              songsHash["played"] = 1;
+            } else {
+              songsHash["played"] = 0;
+            }
+            songsArray.push(songsHash);
+          });
+          videoIDs = $(videoIDs).not(songsPlayed).get();
+          currentVideoIndex = videoIDs.indexOf(whatIsPlaying);
+          $.post("/requests/arrange", {"video_ids": videoIDs, "playlist_id": match[1], "songs_array": songsArray, "current_video_index": currentVideoIndex }, function(data) {  
+          });
+        }
+    });
+  };
 
   $(".song-uid").click(function(event) {
     event.preventDefault();
