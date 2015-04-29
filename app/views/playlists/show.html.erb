@@ -100,9 +100,9 @@
                   </a>
                 <% end %>
 
-                <p>
-                <%= link_to "#{request.song.name}", request.song, id: "#{request.song.uid}", class: "song-uid" %>
-                </p>
+                <%= image_tag("https://img.youtube.com/vi/#{request.song.uid}/default.jpg", height: '60', width: '80', class: "youtube_thumbnail") %>
+                  <%= link_to "#{request.song.name}", request.song, id: "#{request.song.uid}", class: "song-uid" %>
+                  <span><%= "Requested by: #{request.listener.name} "%></span>
               </div>
 
             <% end %>
