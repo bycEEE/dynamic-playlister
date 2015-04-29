@@ -14,11 +14,14 @@
  *= require_tree .
  *= require_self
  *= require jquery-ui
+ *= require font-awesome
  //= depend_on_asset "bootstrap/glyphicons-halflings-regular.eot"
  //= depend_on_asset "bootstrap/glyphicons-halflings-regular.woff"
  //= depend_on_asset "bootstrap/glyphicons-halflings-regular.ttf"
  //= depend_on_asset "bootstrap/glyphicons-halflings-regular.svg"
  */
+
+
 @import "bootstrap";
 /* Some Style from the Bootstrap Default Theme */
 body {
