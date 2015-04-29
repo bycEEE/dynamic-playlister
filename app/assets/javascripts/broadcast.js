@@ -12,16 +12,20 @@ $(function() {
   // add songs
   faye.subscribe("/playlists/" + match[1] + "/add", function(data) {
     videoIDs.push(data.uid);
-    $("#songs-list").append("<div class=\"request rowBox ui-sortable-handle\" id=\"request_" + data.request_id + "\">"
+    var string = "<div class=\"request rowBox ui-sortable-handle\" id=\"request_" + data.request_id + "\">"
                                   + "<div class=\"voting\" id=\"voting-" + data.request_id + "\">" 
                                   + "<h6 id=\"vote-count-" + data.request_id + "\">" + data.vote_count + "</h6>"
                                   + "<a class=\"upvote\" id=\"upvote-" + data.request_id + "\"> upvote </a>"
                                   + "<a class=\"downvote\" id=\"downvote-" + data.request_id + "\">downvote</a>"
-                                  + "<a class=\"delete\" id = \"delete-" + data.request_id + "\"> delete</a>"
-                                  + "</div>"
+
+                                  if(current_user_is_host == true) {
+                                    string += "<a class=\"delete\" id = \"delete-" + data.request_id + "\"> delete</a>"
+                                  };
+
+                                  string += "</div>"
                                   + "<a id="+data.uid+" class=\"song-uid\" href=\"/songs/" + data.song_id + "\">" + data.name + "</a>"
                                   + "</div>"
-                                  );
+    $("#songs-list").append(string);
     songActions();
   });
 
@@ -50,8 +54,12 @@ $(function() {
                                     + "<h6 id=\"vote-count-" + hash.id + "\">" + hash.votes + "</h6>"
                                     + "<a class=\"upvote\" id=\"upvote-" + hash.id + "\"> upvote </a>"
                                     + "<a class=\"downvote\" id=\"downvote-" + hash.id + "\">downvote</a>"
-                                    + "<a class=\"delete\" id = \"delete-" + hash.id + "\">delete</a>" // Fix delete being available for non-hosts
-                                    + "</div>"
+
+                                    if(current_user_is_host == true) {
+                                      string += "<a class=\"delete\" id = \"delete-" + hash.id + "\"> delete</a>"
+                                    };
+
+                                    string += "</div>"
                                     + "<a id="+hash.uid+" class=\"song-uid\" href=\"/songs/" + hash.url_id + "\">" + hash.title + "</a>"
                                     + "</div>";
       } else {
@@ -60,13 +68,19 @@ $(function() {
                             + "<h6 id=\"vote-count-" + hash.id + "\">" + hash.votes + "</h6>"
                             + "<a class=\"upvote\" id=\"upvote-" + hash.id + "\"> upvote </a>"
                             + "<a class=\"downvote\" id=\"downvote-" + hash.id + "\">downvote</a>"
-                            + "<a class=\"delete\" id = \"delete-" + hash.id + "\"> delete</a>" // Fix delete being available for non-hosts
-                            + "</div>"
+
+                            if(current_user_is_host == true) {
+                              string += "<a class=\"delete\" id = \"delete-" + hash.id + "\"> delete</a>"
+                            };
+
+                            string += "</div>"
                             + "<a id="+hash.uid+" class=\"song-uid\" href=\"/songs/" + hash.url_id + "\">" + hash.title + "</a>"
                             + "</div>";
       };
     });
     $("#songs-list").html(string);
     songActions();
+    videoIDs = data.video_ids;
+    currentVideoIndex = data.current_video_index;
   });
 });
