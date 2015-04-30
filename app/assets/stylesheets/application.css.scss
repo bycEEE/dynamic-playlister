@@ -24,10 +24,6 @@
 
 @import "bootstrap";
 /* Some Style from the Bootstrap Default Theme */
-body {
-  padding-top: 70px;
-  padding-bottom: 30px;
-}
 
 .theme-dropdown .dropdown-menu {
   position: static;
@@ -37,4 +33,12 @@ body {
 
 .theme-showcase > p > .btn {
   margin: 5px 0;
+}
+
+.navbar-nav li a {
+  line-height: 30px;
+}
+
+.navbar-brand {
+  line-height: 30px;
 }

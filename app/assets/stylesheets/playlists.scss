@@ -28,6 +28,18 @@
   .l { font_size: 1.2em; }
 }
 
+#not-logged-in {
+  background: url('aux_cord.jpg') no-repeat center center;
+}
+
+#player-underbar {
+  padding-bottom: 50px;
+}
+
+#skip {
+  float: left;
+}
+
 .request {
   border: 1px solid black;
 }
@@ -40,13 +52,18 @@
   margin: auto;
 }
 
-.downvote {
-  margin: auto;
+.song-info {
+  height: 100%;
 }
 
-.song-info {
-  height: 5em;
-  line-height: 5em;
+.song-thumbnail {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+.downvote {
+  margin: auto;
 }
 
 .delete {

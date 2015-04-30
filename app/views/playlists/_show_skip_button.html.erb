@@ -1,3 +1,5 @@
 <%= form_tag do %>
-  <%= submit_tag("skip", :id => "skip-song") %>
+  <%= button_tag(type: "submit", :id => "skip", :class => "btn btn-default") do %>
+    <i class="fa liked fa-step-forward"></i>
+  <% end %>
 <% end %>

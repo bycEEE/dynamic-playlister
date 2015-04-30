@@ -89,11 +89,13 @@
         <center><div id="player"></div></center>
       </div>
 
-      <div id="currently_playing">
-        Currently playing nothing
+      <div id="player-underbar">
+        <%= render 'show_skip_button' %>
+        <div id="currently_playing">
+          Currently playing nothing
+        </div>
       </div>
-      <%= render 'show_skip_button' %>
-
+      
       <div id="playlist">
         <div id="songs-list">
           <% @playlist.requests.order(:position).each do |request| %>
@@ -112,18 +114,23 @@
                 <% end %>
               </div> 
 
-              <div class="col-md-11 col-xs-17 song-info">
-                <% if current_user.id == @playlist.host_id %>
-                  <a class="delete" id="delete-<%= request.id %>">
-                    <span class="glyphicon glyphicon-remove"></span>
-                  </a>
-                <% end %>
-
+              <div class="col-md-2 col-xs-3 song-thumbnail">
                 <%= image_tag("https://img.youtube.com/vi/#{request.song.uid}/default.jpg", height: '60', width: '80', class: "youtube_thumbnail") %>
-                  <%= link_to "#{request.song.name}", request.song, id: "#{request.song.uid}", class: "song-uid" %>
-                  <span><%= "Requested by: #{request.listener.name} "%></span>
               </div>
 
+              <div class="col-md-8 col-xs-14 song-info">
+                <p>
+                <%= link_to "#{request.song.name}", request.song, id: "#{request.song.uid}", class: "song-title" %><br>
+                <%= "Requested by: #{request.listener.name} "%>
+                </p>
+              </div>
+              
+              <% if current_user.id == @playlist.host_id %>
+                <a class="delete" id="delete-<%= request.id %>">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </a>
+              <% end %>
+            
             <% end %>
           <% end %>
         </div>
