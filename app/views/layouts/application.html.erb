@@ -11,7 +11,7 @@
   <script>var current_user_is_host = false;</script>
   <%= render 'layouts/header' %>
   <% if flash[:notice] %>
-    <center><div class="notice"><%= flash[:notice] %></div></center>
+    <center><div class="notice"><%= flash[:notice].join("<br>").html_safe %></div></center>
   <% end %>
   <div class="container">
     <%= yield %>

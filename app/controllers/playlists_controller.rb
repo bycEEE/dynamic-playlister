@@ -17,9 +17,11 @@ class PlaylistsController < ApplicationController
     @approved_subscriptions = @playlist.subscriptions.where(:approved => true) 
     @unapproved_subscriptions = @playlist.subscriptions.where(:approved => false)
     @like = Like.find_by({:playlist_id => @playlist.id, :user_id => current_user.id })
-    # binding.pry
-    # broadcast_information = { :votes => "#{request.vote_count}", :request_id => "#{request.id}" }
-    # FayeServer.broadcast("/playlists/#{request.playlist.id}/votes", broadcast_information)
+
+    if @playlist.prvt && current_user.id != @playlist.host_id
+      flash[:notice] = "This playlist is private!."
+      redirect_to current_user
+    end
   end
 
   def new
@@ -38,11 +40,8 @@ class PlaylistsController < ApplicationController
   def edit
     @playlist = Playlist.find(params[:id])
 
-    if @playlist != current_user
+    if @playlist.host_id != current_user.id
       flash[:notice] = "You can't edit another user's playlist."
-      redirect_to @playlist
-    else
-      flash[:notice] = "Playlist updated!"
       redirect_to @playlist
     end
   end
@@ -50,7 +49,6 @@ class PlaylistsController < ApplicationController
   def update
     flash[:notice] = []
     @playlist = Playlist.find(params[:id])
-
     if @playlist.locked == true && playlist_params[:locked] == "0"
         flash[:notice] << "Playlist successfully unlocked"
     elsif @playlist.locked == false && playlist_params[:locked] == "1"
@@ -60,6 +58,9 @@ class PlaylistsController < ApplicationController
       flash[:notice] << "Playlist successfully made public"
     elsif @playlist.prvt == false && playlist_params[:prvt] == "1"
       flash[:notice] << "Playlist successfully made private"
+    end
+    if playlist_params[:tag_list] != @playlist.tag_list.join(", ")
+      flash[:notice] << "Tags successfully updated"
     end
     @playlist.update_attributes(playlist_params)
       redirect_to @playlist
