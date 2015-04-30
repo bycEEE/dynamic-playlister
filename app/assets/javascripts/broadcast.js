@@ -54,7 +54,7 @@ $(function() {
 
   // delete song
   faye.subscribe("/playlists/" + match[1] +"/delete", function(data) {
-    $('#request_'+ data.request_id).remove();
+    $('#request_'+ data.request_id).fadeOut(500, function() { $(this).remove(); });
     var songToDelete = videoIDs.indexOf(data.request_song_uid);
     videoIDs.splice(songToDelete, 1);
   });
