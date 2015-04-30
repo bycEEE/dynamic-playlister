@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-
-  resources :likes
-
+  
   root to: 'static_pages#index'
 
   get '/search_suggestions', to: 'search#autocomplete'
@@ -26,10 +24,11 @@ Rails.application.routes.draw do
   get '/search', to: 'search#playlist_search'
 
   resources :subscriptions, :only => [:create, :destroy, :update]
-  resources :votes
-  resources :requests
-  resources :songs
-  resources :users
+  resources :votes, :only => [:upvote, :downvote]
+  resources :requests, :only => [:arrange, :destroy]
+  resources :songs, :only => [:create, :show]
+  resources :users, :only => [:show, :update]
+  resources :likes, :only => [:create, :destroy]
   
   resources :playlists do 
     resources :chat_messages
