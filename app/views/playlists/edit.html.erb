@@ -18,14 +18,17 @@
     <%= f.label :name %>
     <%= f.text_field :name, :value => @playlist.name %><br>
 
-    <%= f.label :private, "I want this playlist to be private" %>
-    <%= f.radio_button :private, true, :checked => @playlist.private, :value=> true %><br>
+    <%= f.label :prvt, "I want this playlist to be private." %>
+    <%= f.check_box :prvt %><br>
+
+    <%= f.label :locked, "I want to lock this playlist and prevent changes." %>
+    <%= f.check_box :locked %><br>
 
     <%= f.label :tag_list, "Tags (seperated by commas)" %>
     <%= f.text_field :tag_list, :value => @playlist.tag_list.join(", ") %><br>
 
     <%= f.hidden_field :host_id, :value => current_user.id %>
-    <%= f.submit "Create a new playlist", class: "btn btn-primary" %>
+    <%= f.submit "Save Changes", class: "btn btn-primary" %>
 <% end %>
 
 <%= link_to 'Back', @playlist %>

@@ -46,18 +46,37 @@
           document.getElementById('currently_playing').innerHTML = 'Currently playing: ' + player.getVideoData().title;
         }
     }
+
+    //side-bar tabs:
+    $('#playlist-side-bar div:first').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+
+    $('#playlist-side-bar div:last').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
   
 </script>
 
 <div class="container">    
 
   <div class="row">
-    <div id="playlist-header" class="col-xs-18 col-md-12">
+    <div id="playlist-header" class="col-xs-13 col-md-9">
       <h1><%= @playlist.name %></h1>
-      <%= link_to_if(@playlist.host == current_user, "Edit Playlist Information", { controller: "playlists", action: "edit" })%>
-      <div style="float:right">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-13 col-md-9">
+      
+    </div>
+    <div id="panel" class="col-xs-5 col-md-3">
+      <% if current_user.id == @playlist.host_id %>
         <%= render 'host_panel' %>
-      </div>
+      <% else %>  
+        <%= render 'like_button' %>
+      <% end %>
     </div>
   </div>
 
@@ -117,12 +136,23 @@
 
     <!-- CHAT FEATURE: -->
     <div id="playlist-side-bar" class="col-xs-6 col-md-4">
-      <%= render 'like_button' %>
-      <%= render 'chat_box_and_form' %>
-      <% if current_user.id == @playlist.host_id %>
-        <%= render 'subscription_feature' %>
-        <%= render 'like_user_box' %>
-      <% end %>
+      <ul id="side-bar-tabs" class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="">
+          <a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="false">Interaction</a>
+        </li>
+        <li role="presentation" class="active">
+          <a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="true">Chat</a>
+        </li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div role="tabpanel" class="tab-pane fade" id="home" aria-labelledby="home-tab">
+          <%= render 'subscription_feature' %>
+          <%= render 'like_user_box' %>
+        </div>
+        <div role="tabpanel" class="tab-pane fade active in" id="profile" aria-labelledby="profile-tab">
+          <%= render 'chat_box_and_form' %>
+        </div>
+      </div>
     </div>
 
   </div><!-- row -->

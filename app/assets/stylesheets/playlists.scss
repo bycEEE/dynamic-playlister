@@ -4,7 +4,7 @@
 
 #message-div {
   width: auto;
-  height: 500px;
+  height: 400px;
   overflow: auto;
 }
 
@@ -51,4 +51,27 @@
 
 .delete {
   float: right;
+}
+
+.btn {
+  border: none;
+  background: white;
+}
+
+.liked {
+  color: green;
+}
+
+.panel {
+  
+}
+
+.fa-lock {
+  color: gray;
+}
+
+#panel .btn {
+  float: right;
+  height: 100%;
+  border: none;
 }

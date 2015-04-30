@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150429182914) do
+ActiveRecord::Schema.define(version: 20150430030245) do
 
   create_table "chat_messages", force: :cascade do |t|
     t.string   "content"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20150429182914) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.boolean  "locked",     default: false
-    t.boolean  "private",    default: false
+    t.boolean  "prvt",       default: false
   end
 
   create_table "requests", force: :cascade do |t|

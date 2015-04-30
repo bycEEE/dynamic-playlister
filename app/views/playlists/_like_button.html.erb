@@ -3,16 +3,16 @@
   <%= form_for @like, :method => :delete do |f| %>   
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.hidden_field :playlist_id, :value => @playlist.id %>
-    <%= button_tag(type: "submit", :class => "btn btn-danger") do %>
-      <i class="fa fa-thumbs-up"></i>
+    <%= button_tag(type: "submit", :class => "btn btn-default") do %>
+      <i class="fa liked fa-thumbs-up fa-3x"></i>
     <% end %>
   <% end %>
 <% else %>
   <%= form_for Like.new do |f| %>
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.hidden_field :playlist_id, :value => @playlist.id %>
-    <%= button_tag(type: "submit", :class => "btn btn-success") do %>
-      <i class="fa fa-thumbs-up"></i>
+    <%= button_tag(type: "submit", :class => "btn btn-default") do %>
+      <i class="fa unliked fa-thumbs-up fa-3x"></i>
     <% end %>
   <% end %>
 <% end %>
