@@ -37,6 +37,14 @@ class PlaylistsController < ApplicationController
 
   def edit
     @playlist = Playlist.find(params[:id])
+
+    if @playlist != current_user
+      flash[:notice] = "You can't edit another user's playlist."
+      redirect_to @playlist
+    else
+      flash[:notice] = "Playlist updated!"
+      redirect_to @playlist
+    end
   end
 
   def update
