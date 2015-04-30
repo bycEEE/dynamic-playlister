@@ -32,7 +32,9 @@ class SongsController < ApplicationController
                               :name => "#{song.name}", 
                               :vote_count => "#{request.vote_count}", 
                               :song_id => "#{request.song_id}",
-                              :uid => "#{song.uid}"}
+                              :uid => "#{song.uid}",
+                              :request_by => "#{request.listener.name}"
+                            }
     FayeServer.broadcast("/playlists/#{request.playlist_id}/add", broadcast_information)
     render :nothing => true
   end

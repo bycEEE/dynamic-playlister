@@ -35,7 +35,7 @@ $(function() {
     }
   });
 
-  $( "#skip-song" ).on( "click", function(event) {
+  $( "#skip" ).on( "click", function(event) {
     event.preventDefault();
     event.stopPropagation();
     if (player.getPlayerState() == 0) { // ended
@@ -82,11 +82,12 @@ $(function() {
             videoIDs.push(this.id);
             var songsHash = {};
             songsHash["uid"] = this.id;
-            songsHash["id"] = this.parentElement.id.split("_")[1];
+            songsHash["id"] = $(this).parents().get(2).id.split("_")[1];
             songsHash["url_id"] = $(this).attr("href").split("/")[2];
             songsHash["title"] = this.text;
+            songsHash["request_by"] = current_user_name;
             songsHash["votes"] = $("#vote-count-" + songsHash["id"]).text();
-            if(this.parentElement.style.cssText.match(/^opacity/)) {
+            if($(this).parents().get(1).style.cssText.match(/^opacity/)) {
               songsHash["played"] = 1;
             } else {
               songsHash["played"] = 0;

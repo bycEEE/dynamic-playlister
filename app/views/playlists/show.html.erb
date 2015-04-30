@@ -1,4 +1,7 @@
-<script>current_user_is_host = <%= current_user.id == @playlist.host_id %>;</script>
+<script>
+  current_user_is_host = <%= current_user.id == @playlist.host_id %>;
+  current_user_name = "<%= "#{current_user.name}" %>";
+</script>
 <!-- <center><div id="player"></div></center> -->
 <script src="http://www.youtube.com/iframe_api"></script>
 <script>
@@ -120,7 +123,7 @@
 
               <div class="col-md-8 col-xs-14 song-info">
                 <p>
-                <%= link_to "#{request.song.name}", request.song, id: "#{request.song.uid}", class: "song-title" %><br>
+                <%= link_to "#{request.song.name}", request.song, id: "#{request.song.uid}", class: "song-uid" %><br>
                 <%= "Requested by: #{request.listener.name} "%>
                 </p>
               </div>

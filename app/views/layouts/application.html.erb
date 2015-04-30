@@ -8,7 +8,10 @@
   <%= analytics_init if Rails.env.production? %>
 </head>
 <body>
-  <script>var current_user_is_host = false;</script>
+  <script>
+    var current_user_is_host = false;
+    var current_user_name = "Guest";
+  </script>
   <%= render 'layouts/header' %>
   <% if flash[:notice] %>
     <center><div class="notice"><%= flash[:notice].join("<br>").html_safe %></div></center>

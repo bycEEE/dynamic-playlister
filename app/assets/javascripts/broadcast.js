@@ -9,22 +9,39 @@ $(function() {
                               "</td></tr>");
     });
 
+
   // add songs
   faye.subscribe("/playlists/" + match[1] + "/add", function(data) {
     videoIDs.push(data.uid);
-    var string = "<div class=\"request row ui-sortable-handle\" id=\"request_" + data.request_id + "\">"
-                                  + "<div class=\"voting\" id=\"voting-" + data.request_id + "\">" 
-                                  + "<h6 id=\"vote-count-" + data.request_id + "\">" + data.vote_count + "</h6>"
-                                  + "<a class=\"upvote\" id=\"upvote-" + data.request_id + "\"> upvote </a>"
-                                  + "<a class=\"downvote\" id=\"downvote-" + data.request_id + "\">downvote</a>"
+   var string    = "<div class=\"request row ui-sortable-handle\" id=\"request_" + data.request_id + "\">"
+                      + "<div class=\"col-md-1 col-xs-1 voting\" id=\"voting-" + data.request_id + "\">"
+                      + "<a class=\"upvote\" id=\"upvote-" + data.request_id + "\">"
+                      + "<span class=\"glyphicon glyphicon-chevron-up\"></span>"
+                      + "</a>"
+                      + "<h6 id=\"vote-count-" + data.request_id + "\">" + data.vote_count + "</h6>"
+                      + "<a class=\"downvote\" id=\"downvote-" + data.request_id + "\">"
+                      + "<span class=\"glyphicon glyphicon-chevron-down\"></span>"
+                      + "</a>"
+                      + "</div>"
 
-                                  if(current_user_is_host == true) {
-                                    string += "<a class=\"delete\" id = \"delete-" + data.request_id + "\"> delete</a>"
-                                  };
+                      + "<div class=\"col-md-2 col-xs-3 song-thumbnail\">"
+                      + "<img height=\"60\" width=\"80\" class=\"youtube_thumbnail\" src=\"https://img.youtube.com/vi/" + data.uid + "/default.jpg\" alt=\"Default\" />"
+                      + "</div>"
 
-                                  string += "</div>"
-                                  + "<a id="+data.uid+" class=\"song-uid\" href=\"/songs/" + data.song_id + "\">" + data.name + "</a>"
-                                  + "</div>"
+                      + "<div class=\"col-md-8 col-xs-14 song-info\">"
+                      + "<p>"
+                      + "<a id="+ data.uid +" class=\"song-uid\" href=\"/songs/" + data.song_id + "\">"+data.name+"</a><br>"
+                      + "Requested by: "+data.request_by+""
+                      + "</p>"
+                      + "</div>"
+
+                       if(current_user_is_host == true) {
+                        string += "<a class=\"delete\" id=\"delete-" + data.request_id + "\">"
+                        + "<span class=\"glyphicon glyphicon-remove\"></span>"
+                        + "</a>"
+                      };
+                      string += "</div>";
+
     $("#songs-list").append(string);
     songActions();
   });
@@ -46,37 +63,81 @@ $(function() {
   faye.subscribe("/playlists/" + match[1] +"/arrange", function(data) {
     videoIDs = data.video_ids;
     var string = "";
-
     $.each(data.songs_array, function(index, hash) {
       if(hash.played == 1) {
-        string += "<div class=\"request row ui-sortable-handle\" id=\"request_" + hash.id + "\" style=\"opacity: 0.2;\">"
-                                    + "<div class=\"voting\" id=\"voting-" + hash.id + "\">" 
-                                    + "<h6 id=\"vote-count-" + hash.id + "\">" + hash.votes + "</h6>"
-                                    + "<a class=\"upvote\" id=\"upvote-" + hash.id + "\"> upvote </a>"
-                                    + "<a class=\"downvote\" id=\"downvote-" + hash.id + "\">downvote</a>"
+        // string += "<div class=\"request row ui-sortable-handle\" id=\"request_" + hash.id + "\" style=\"opacity: 0.2;\">"
+        //                             + "<div class=\"voting\" id=\"voting-" + hash.id + "\">" 
+        //                             + "<h6 id=\"vote-count-" + hash.id + "\">" + hash.votes + "</h6>"
+        //                             + "<a class=\"upvote\" id=\"upvote-" + hash.id + "\"> upvote </a>"
+        //                             + "<a class=\"downvote\" id=\"downvote-" + hash.id + "\">downvote</a>"
 
-                                    if(current_user_is_host == true) {
-                                      string += "<a class=\"delete\" id = \"delete-" + hash.id + "\"> delete</a>"
-                                    };
+        //                             if(current_user_is_host == true) {
+        //                               string += "<a class=\"delete\" id = \"delete-" + hash.id + "\"> delete</a>"
+        //                             };
 
-                                    string += "</div>"
-                                    + "<a id="+hash.uid+" class=\"song-uid\" href=\"/songs/" + hash.url_id + "\">" + hash.title + "</a>"
-                                    + "</div>";
+        //                             string += "</div>"
+        //                             + "<a id="+hash.uid+" class=\"song-uid\" href=\"/songs/" + hash.url_id + "\">" + hash.title + "</a>"
+        //                             + "</div>";
+
+       string += "<div class=\"request row ui-sortable-handle\" id=\"request_" + hash.id + "\" style=\"opacity: 0.2;\">"
+                    + "<div class=\"col-md-1 col-xs-1 voting\" id=\"voting-" + hash.id + "\">"
+                    + "<a class=\"upvote\" id=\"upvote-" + hash.id + "\">"
+                    + "<span class=\"glyphicon glyphicon-chevron-up\"></span>"
+                    + "</a>"
+                    + "<h6 id=\"vote-count-" + hash.id + "\">" + hash.votes + "</h6>"
+                    + "<a class=\"downvote\" id=\"downvote-" + hash.id + "\">"
+                    + "<span class=\"glyphicon glyphicon-chevron-down\"></span>"
+                    + "</a>"
+                    + "</div>"
+
+                    + "<div class=\"col-md-2 col-xs-3 song-thumbnail\">"
+                    + "<img height=\"60\" width=\"80\" class=\"youtube_thumbnail\" src=\"https://img.youtube.com/vi/" + hash.uid + "/default.jpg\" alt=\"Default\" />"
+                    + "</div>"
+
+                    + "<div class=\"col-md-8 col-xs-14 song-info\">"
+                    + "<p>"
+                    + "<a id="+ hash.url_id +" class=\"song-uid\" href=\"/songs/" + hash.url_id + "\">"+hash.title+"</a><br>"
+                    + "Requested by: "+hash.request_by+""
+                    + "</p>"
+                    + "</div>"
+
+                    if(current_user_is_host == true) {
+                      string += "<a class=\"delete\" id=\"delete-" + hash.id + "\">"
+                      + "<span class=\"glyphicon glyphicon-remove\"></span>"
+                      + "</a>"
+                    };
+                    string += "</div>";
+
       } else {
-        string += "<div class=\"request row ui-sortable-handle\" id=\"request_" + hash.id + "\">"
-                            + "<div class=\"voting\" id=\"voting-" + hash.id + "\">" 
-                            + "<h6 id=\"vote-count-" + hash.id + "\">" + hash.votes + "</h6>"
-                            + "<a class=\"upvote\" id=\"upvote-" + hash.id + "\"> upvote </a>"
-                            + "<a class=\"downvote\" id=\"downvote-" + hash.id + "\">downvote</a>"
+       string += "<div class=\"request row ui-sortable-handle\" id=\"request_" + hash.id + "\">"
+                    + "<div class=\"col-md-1 col-xs-1 voting\" id=\"voting-" + hash.id + "\">"
+                    + "<a class=\"upvote\" id=\"upvote-" + hash.id + "\">"
+                    + "<span class=\"glyphicon glyphicon-chevron-up\"></span>"
+                    + "</a>"
+                    + "<h6 id=\"vote-count-" + hash.id + "\">" + hash.votes + "</h6>"
+                    + "<a class=\"downvote\" id=\"downvote-" + hash.id + "\">"
+                    + "<span class=\"glyphicon glyphicon-chevron-down\"></span>"
+                    + "</a>"
+                    + "</div>"
 
-                            if(current_user_is_host == true) {
-                              string += "<a class=\"delete\" id = \"delete-" + hash.id + "\"> delete</a>"
-                            };
+                    + "<div class=\"col-md-2 col-xs-3 song-thumbnail\">"
+                    + "<img height=\"60\" width=\"80\" class=\"youtube_thumbnail\" src=\"https://img.youtube.com/vi/" + hash.uid + "/default.jpg\" alt=\"Default\" />"
+                    + "</div>"
 
-                            string += "</div>"
-                            + "<a id="+hash.uid+" class=\"song-uid\" href=\"/songs/" + hash.url_id + "\">" + hash.title + "</a>"
-                            + "</div>";
-      };
+                    + "<div class=\"col-md-8 col-xs-14 song-info\">"
+                    + "<p>"
+                    + "<a id="+ hash.uid +" class=\"song-uid\" href=\"/songs/" + hash.url_id + "\">"+hash.title+"</a><br>"
+                    + "Requested by: "+hash.request_by+""
+                    + "</p>"
+                    + "</div>"
+
+                    if(current_user_is_host == true) {
+                      string += "<a class=\"delete\" id=\"delete-" + hash.id + "\">"
+                      + "<span class=\"glyphicon glyphicon-remove\"></span>"
+                      + "</a>"
+                    };
+                    string += "</div>";
+                  };
     });
     $("#songs-list").html(string);
     songActions();
