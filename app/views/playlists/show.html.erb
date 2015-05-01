@@ -51,12 +51,12 @@
     }
 
     //side-bar tabs:
-    $('#playlist-side-bar div:first').click(function (e) {
+    $('#playlist-side-bar div div:eq(0)').click(function (e) {
       e.preventDefault()
       $(this).tab('show')
     })
 
-    $('#playlist-side-bar div:last').click(function (e) {
+    $('#playlist-side-bar div div:eq(1)').click(function (e) {
       e.preventDefault()
       $(this).tab('show')
     })
@@ -144,8 +144,8 @@
       </div>
     </div>
 
-    <!-- CHAT FEATURE: -->
-    <div id="playlist-side-bar" class="col-xs-6 col-md-4">
+    <!-- SIDE BAR: -->
+    <div id="playlist-side-bar" class="col-xs-6 col-md-4" role="tabpanel">
       <ul id="side-bar-tabs" class="nav nav-tabs" role="tablist">
         <li role="presentation" class="">
           <a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="false">Interaction</a>

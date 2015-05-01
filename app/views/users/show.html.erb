@@ -35,8 +35,8 @@
 <div class="col-md-4">
   <% if current_user.subscriptions.any? %>
     <h4>Playlists you follow:</h4>
-    <% current_user.subscriptions.each do |playlist| %>
-      <%= link_to "#{playlist.name}", playlist_path(playlist) %><br>
+    <% current_user.subscriptions.each do |subscription| %>
+      <%= link_to "#{subscription.playlist.name}", playlist_path(subscription.playlist) %><br>
     <% end %>
     <% else %>
     <h4>You are currently not following any playlists.</h4>
@@ -46,8 +46,8 @@
 <div class="col-md-4">
   <% if current_user.liked_playlists.any? %>
     <h4>Playlists you like:</h4>
-    <% current_user.subscriptions.each do |playlist| %>
-      <%= link_to "#{playlist.name}", playlist_path(playlist) %><br>
+    <% current_user.subscriptions.each do |subscription| %>
+      <%= link_to "#{subscription.playlist.name}", playlist_path(subscription.playlist) %><br>
     <% end %>
     <% else %>
     <h4>You currently do not like any playlists.</h4>
