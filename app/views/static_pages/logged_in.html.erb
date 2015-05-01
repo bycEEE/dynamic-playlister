@@ -1,9 +1,13 @@
-<h1>Welcome, <%= current_user.name %>!</h1>
-<p>search bar for playlists goes here</p>
+<div class="col-md-offset-3 col-md-5">
+  <div class="jumbotron log-jumbotron">
+    <center>
+      <h1>Welcome, <%= current_user.name %>!</h1>
 
-<%= form_tag("/search", method: "get") do |f| %>
-  <%= label_tag "Search" %>
-  <%= text_field_tag :keyword %>
-  <%= submit_tag "Search" %>
-<% end %>
-
+      <%= form_tag("/search", method: "get") do |f| %>
+        <%= label_tag "Search" %>
+        <%= text_field_tag :keyword %>
+        <%= submit_tag "Search" %>
+      <% end %>
+    </center>
+  </div>
+</div>
