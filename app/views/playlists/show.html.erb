@@ -51,12 +51,12 @@
     }
 
     //side-bar tabs:
-    $('#playlist-side-bar div div:eq(0)').click(function (e) {
+    $('#interaction').click(function (e) {
       e.preventDefault()
       $(this).tab('show')
     })
 
-    $('#playlist-side-bar div div:eq(1)').click(function (e) {
+    $('#chat').click(function (e) {
       e.preventDefault()
       $(this).tab('show')
     })
@@ -148,18 +148,18 @@
     <div id="playlist-side-bar" class="col-xs-6 col-md-4" role="tabpanel">
       <ul id="side-bar-tabs" class="nav nav-tabs" role="tablist">
         <li role="presentation" class="">
-          <a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="false">Interaction</a>
+          <a href="#interaction" id="home-tab" role="tab" data-toggle="tab" aria-controls="interaction" aria-expanded="false">Interaction</a>
         </li>
         <li role="presentation" class="active">
-          <a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="true">Chat</a>
+          <a href="#chat" role="tab" id="profile-tab" data-toggle="tab" aria-controls="chat" aria-expanded="true">Chat</a>
         </li>
       </ul>
       <div id="myTabContent" class="tab-content">
-        <div role="tabpanel" class="tab-pane fade" id="home" aria-labelledby="home-tab">
+        <div role="tabpanel" class="tab-pane fade" id="interaction" aria-labelledby="interaction-tab">
           <%= render 'subscription_feature' %>
           <%= render 'like_user_box' %>
         </div>
-        <div role="tabpanel" class="tab-pane fade active in" id="profile" aria-labelledby="profile-tab">
+        <div role="tabpanel" class="tab-pane fade active in" id="chat" aria-labelledby="chat-tab">
           <%= render 'chat_box_and_form' %>
         </div>
       </div>
