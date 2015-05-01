@@ -96,7 +96,7 @@ $(function() {
 
                     + "<div class=\"col-md-8 col-xs-14 song-info\">"
                     + "<p>"
-                    + "<a id="+ hash.url_id +" class=\"song-uid\" href=\"/songs/" + hash.url_id + "\">"+hash.title+"</a><br>"
+                    + "<a id="+ hash.uid +" class=\"song-uid\" href=\"/songs/" + hash.url_id + "\">"+hash.title+"</a><br>"
                     + "Requested by: "+hash.request_by+""
                     + "</p>"
                     + "</div>"

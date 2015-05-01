@@ -39,18 +39,18 @@ $(function() {
     event.preventDefault();
     event.stopPropagation();
     if (player.getPlayerState() == 0) { // ended
-      $('#songs-list').find("#" + whatIsPlaying).parent().closest('div').fadeTo(500,0.2);
+      $('#songs-list').find("#" + whatIsPlaying).parents().eq(2).fadeTo(500,0.2);
       songsPlayed.push(whatIsPlaying);
       player.loadVideoById(videoIDs[currentVideoIndex]);
     }
     if (player.getPlayerState() == 1) { // playing
-      $('#songs-list').find("#" + whatIsPlaying).parent().closest('div').fadeTo(500,0.2);
+      $('#songs-list').find("#" + whatIsPlaying).parents().eq(2).fadeTo(500,0.2);
       songsPlayed.push(whatIsPlaying);
       currentVideoIndex++;
       player.loadVideoById(videoIDs[currentVideoIndex]);
     }
     if (player.getPlayerState() == 2) { // paused
-      $('#songs-list').find("#" + videoIDs[currentVideoIndex]).parent().closest('div').fadeTo(500,0.2);
+      $('#songs-list').find("#" + videoIDs[currentVideoIndex]).parents().eq(2).fadeTo(500,0.2);
       songsPlayed.push(whatIsPlaying);
       currentVideoIndex++;
       player.loadVideoById(videoIDs[currentVideoIndex]);
@@ -85,9 +85,11 @@ $(function() {
             songsHash["id"] = $(this).parents().get(2).id.split("_")[1];
             songsHash["url_id"] = $(this).attr("href").split("/")[2];
             songsHash["title"] = this.text;
-            songsHash["request_by"] = current_user_name;
+            var request_regex = /Requested by: (.+)/;
+            var request_match = request_regex.exec(this.parentElement.textContent);
+            songsHash["request_by"] = request_match[1];
             songsHash["votes"] = $("#vote-count-" + songsHash["id"]).text();
-            if($(this).parents().get(1).style.cssText.match(/^opacity/)) {
+            if($(this).parents().get(2).style.cssText.match(/^opacity/)) {
               songsHash["played"] = 1;
             } else {
               songsHash["played"] = 0;

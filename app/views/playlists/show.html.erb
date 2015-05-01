@@ -37,7 +37,7 @@
 
     function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.ENDED) {
-          $('#songs-list').find("#" + videoIDs[currentVideoIndex]).parent().closest('div').fadeTo(500,0.2);
+          $('#songs-list').find("#" + videoIDs[currentVideoIndex]).parents().eq(2).fadeTo(500,0.2);
           currentVideoIndex++;
           videoIDs.push(songsPlayed);
             if (currentVideoIndex < videoIDs.length) {
