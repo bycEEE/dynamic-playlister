@@ -14,7 +14,11 @@
   </script>
   <%= render 'layouts/header' %>
   <% if flash[:notice] %>
-    <center><div class="notice"><%= flash[:notice].join("<br>").html_safe %></div></center>
+    <% if flash[:notice].class == Array %>
+      <center><div class="notice"><%= flash[:notice].join("<br>").html_safe %></div></center>
+    <% else %>
+      <center><div class="notice"><%= flash[:notice] %></div></center>
+    <% end %>
   <% end %>
   <div class="container">
     <%= yield %>
