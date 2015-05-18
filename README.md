@@ -1,40 +1,21 @@
-# Dynamic Playlister
+# AUXBOX
 
 ## Description
 
-Add a short description of your app.
+AUXBOX is an application that allows clients to create and share playlists, edit them collaboratively, and communicate in real-time. Playlists have settings that can influence privacy and set editing constraints.
 
-## Screenshots
+## Set-Up
 
-Add some spiffy screenshots of your app here.
+1 - Pull source code from Github. 
 
-## Background
+2 - Migrate the database. 
 
-Why did you want to make this app? What was your development process
-like?
+3 - Run rails server ($ rails s) 
 
-## Features
+4 - Run faye server ($ rackup faye.ru -E production -s thin)
 
-Bullet point some of the key features of your app here.
-
-## Usage
-
-How do users use your app?
-
-## Development/Contribution
-
-Explain how people can contribute to your app. How should they write tests?
-Any things in particular you'd like to see in pull requests?
-
-## Future
-
-What features are you currently working on? Only mention things that you
-actually are implementing. No pie-in-the-sky-never-gonna-happen stuff.
-
-## Author
-
-Link to your blog, twitter, etc!
+5 - Visit localhost port the rails server is running on (localhost:3000 by default)
 
 ## License
 
-Dynamic Playlister is MIT Licensed. See LICENSE for details.
+AUXBOX is MIT Licensed. See LICENSE for details.
