@@ -1,21 +1,26 @@
 class SearchController < ApplicationController
 
   def youtube_search
-    @client = YouTubeIt::Client.new(:dev_key => ENV['YOUTUBE_KEY'])
-    search = @client.videos_by(:query => params[:search_field], :page => 1, :per_page => 20)
-    @videos = search.videos
+    Yt.configuration.api_key = ENV['YOUTUBE_KEY']
+    # @client = YouTubeIt::Client.new(:dev_key => ENV['YOUTUBE_KEY'])
+    videos = Yt::Collections::Videos.new
+    search = videos.where(:q => params[:search_field], order: 'viewCount')
+    @videos = search
   end
 
   def autocomplete
-    @client = YouTubeIt::Client.new(:dev_key => ENV['YOUTUBE_KEY'])
-    search = @client.videos_by(:query => params[:term], :page => 1, :per_page => 11)
-    videos = search.videos
-    videos.shift #removes youtube device support first link
-
-    videos = videos.each_with_object([]) do |video, videos_array|
+    Yt.configuration.api_key = ENV['YOUTUBE_KEY']
+    # @client = YouTubeIt::Client.new(:dev_key => ENV['YOUTUBE_KEY'])
+    videos = Yt::Collections::Videos.new
+    search = videos.where(:q => params[:term], order: 'viewCount')
+    # videos = search.videos
+    # videos.shift #removes youtube device support first link
+    search.first
+    items = search.as_json["items"]
+    videos = items.each_with_object([]) do |video, videos_array|
       hash = {}
-      hash[:label] = video.title
-      hash[:value] = video.unique_id
+      hash[:label] = video["snippet"]["data"]["title"]
+      hash[:value] = video["id"]
       videos_array << hash
     end
     render json: videos
